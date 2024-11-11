@@ -1,6 +1,6 @@
 import { HttpHandler } from "@/core/interfaces/HttpHandler";
-import { getCookie } from "@/core/providers/CookiesUtils";
 import { HTTP_STATUS_CODES } from "@/core/providers/HttpStatusCodes";
+import { getToken } from "@/core/providers/TokenUtils";
 import axios, { AxiosInstance, AxiosRequestConfig, AxiosResponse } from "axios";
 import toast from "react-hot-toast";
 
@@ -20,8 +20,8 @@ export class AxiosClient implements HttpHandler {
         })
 
         this.axiosInstance.interceptors.request.use(
-            async (config) => {
-                const token = await getCookie('access_token')
+             (config) => {
+                const token =  getToken()
                 if (token) {
                     config.headers.Authorization = `Bearer ${token.replaceAll('"', '')}`
                   } else {
