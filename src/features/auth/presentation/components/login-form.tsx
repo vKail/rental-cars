@@ -21,9 +21,9 @@ export const LoginForm = () => {
                 {...register('email')}
                 placeholder="Correo"
                 defaultValue={initialValues.email}
-                className="mb-3 p-2 border rounded focus:outline-none focus:ring-2 focus:ring-slate-700"
+                className="mb-3 p-2 border rounded focus:outline-none focus:ring-1 focus:ring-slate-700"
             />
-            <span className="text-red-700 text-sm">{errors.email?.message}</span>
+            <span className="text-red-500 text-sm">{errors.email?.message}</span>
 
             <label htmlFor="label" className="text-base font-semibold pb-3">Contraseña </label>
             <input
@@ -31,9 +31,9 @@ export const LoginForm = () => {
                 {...register('password')}
                 placeholder="Contraseña"
                 defaultValue={initialValues.password}
-                className="mb-3 p-2 border rounded focus:outline-none focus:ring-2 focus:ring-slate-700"
+                className="mb-3 p-2 border rounded focus:outline-none focus:ring-1 focus:ring-slate-700"
             />
-            <span className="text-red-700 text-sm">{errors.password?.message}</span>
+            <span className="text-red-500 text-sm">{errors.password?.message}</span>
 
             <button
                 type="submit"

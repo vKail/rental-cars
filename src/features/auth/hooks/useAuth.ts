@@ -16,8 +16,7 @@ export const useAuth = () => {
     })
 
     const onSubmit = async (values: IAuth) => {
-        console.log(values)
-        await login(values)
+        login(values)
     }
 
     return {
