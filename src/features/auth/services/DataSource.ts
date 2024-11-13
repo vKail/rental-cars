@@ -19,7 +19,7 @@ import { UserAdapter } from "../adapters/UserAdapter"
     }
 
     async login(data: IAuth): Promise<IUser> {
-        const response = await this.httpClient.post<IAuthResponse>('/auth/login', { data })
+        const response = await this.httpClient.post<IAuthResponse>('users/sign_in', { data })
         response.access_token && setToken(response.access_token)
         return UserAdapter.toDomain(response)
     }

@@ -29,7 +29,7 @@ export const UseAuthStore = create<AuthStore>(
                 set({ user, loading: false })
             },
             logout: () => {
-                //set({ user: DEFAULT_USER })
+                set({ user: DEFAULT_USER })
             }
         }),
         {
