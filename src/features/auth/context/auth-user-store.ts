@@ -9,6 +9,7 @@ export interface AuthStore {
     setUser : (user: IUser) => void
     loading: boolean
     login: (data: IAuth) => void
+    signup: (data: IUser) => void
     logout: () => void
     
 }
@@ -26,6 +27,11 @@ export const UseAuthStore = create<AuthStore>(
             login: async (data: IAuth) => {
                 set({ loading: true })
                 const user = await AuthDataSourceImpl.getInstance().login(data)
+                set({ user, loading: false })
+            },
+            signup: async (data: IUser) => {
+                set({ loading: true })
+                const user = await AuthDataSourceImpl.getInstance().signup(data)
                 set({ user, loading: false })
             },
             logout: () => {
