@@ -1,12 +1,14 @@
 import { HttpHandler } from "@/core/interfaces/HttpHandler";
-import { ICar } from "../models/ICar";
+import { ICar, ICarResponse } from "../models/ICar";
 import { AxiosClient } from "@/core/infrestructure/http/AxiosClient";
+import { CarsAdapter } from "../adapters/CarsAdapter";
 
 interface DataSource {
-    getAllCars: ()  =>  Promise<ICar[]>,
+    getAllCars: ()  =>  Promise<ICarResponse[]>,
+    getAllCarsAvailables: () => Promise<ICarResponse[]>,
     getCarById: (id: number) => Promise<ICar>,
-    createCar: (data: ICar) => Promise<ICar>,
-    updateCar: (id : number, data: ICar) => Promise<void>,
+    createCar: (data:  Partial<ICar>) => Promise<Partial<ICar>>,
+    updateCar: (id : number, data: Partial<ICar>) => Promise<Partial<ICar>>,
     deleteCar: (id: number) => Promise<void>
 }
 
@@ -15,27 +17,34 @@ export class DataSourceImpl implements DataSource {
     constructor () {
         this.httpClient = AxiosClient.getInstance()
     }
-    async getAllCars (): Promise<ICar[]>{
-        const response = await this.httpClient.get<ICar[]>('/cars')
+    async getAllCars (): Promise<ICarResponse[]>{
+        const response = await this.httpClient.get<ICarResponse[]>('/api/v1/vehicles')
+        return response;
+    }
+    async getAllCarsAvailables (): Promise<ICarResponse[]>{
+        const response = await this.httpClient.get<ICarResponse[]>('/api/v1/vehicles/available')
         return response;
     }
     async getCarById (id: number) : Promise<ICar>{
-        const response = await this.httpClient.get<ICar>(`/cars/${id}`)
+        const response = await this.httpClient.get<ICarResponse>(`/api/v1/vehicles/${id}`)
         return response;
     };
-    async createCar (data: ICar): Promise<ICar>{
-        const response = await this.httpClient.post<ICar>('/cars', {data})
-        return response;
+    async createCar (data: Partial<ICar>): Promise<Partial<ICar>>{
+        const response = await this.httpClient.post<ICarResponse>('/api/v1/vehicles', {data})
+        return CarsAdapter.toDomain(response);
     };
-    async updateCar (id: number, data: ICar): Promise<void>{
-        await this.httpClient.put<Partial<ICar>>(`/cars/${id}`, {data})
+    async updateCar (id: number, data: Partial<ICar>): Promise<Partial<ICar>>{
+        const response = await this.httpClient.put<ICarResponse>(`/api/v1/vehicles/${id}`, {data})
+        return CarsAdapter.toDomain(response);
         
     };
     async deleteCar (id: number): Promise<void>{
         await this.httpClient.delete(`/cars/${id}`)
     };
 
+    static getInstance (): DataSourceImpl {
+        return new DataSourceImpl()
+    }
     
-
      
 }
