@@ -21,9 +21,9 @@ export const AuthForm = () => {
     >
       <div className="flex flex-row justify-between">
         <div className="flex flex-col  w-52">
-          <label htmlFor="label">Nombre</label>
+          <label htmlFor="label" className="text-base font-medium pb-3">Nombre</label>
           <input
-            className="mb-3 p-2 border rounded focus:outline-none focus:ring-1 focus:ring-slate-700"
+            className="mb-3 p-2 border rounded-lg focus:outline-none focus:ring-1 focus:ring-slate-700"
             type="text"
             {...register("name")}
             placeholder="Nombre"
@@ -32,9 +32,9 @@ export const AuthForm = () => {
           <span className="text-sm text-red-500">{errors.name?.message}</span>
         </div>
         <div className="flex flex-col w-52">
-          <label htmlFor="label">Apellido</label>
+          <label htmlFor="label" className="text-base font-medium pb-3">Apellido</label>
           <input
-            className="mb-3 p-2 border rounded focus:outline-none focus:ring-1 focus:ring-slate-700"
+            className="mb-3 p-2 border rounded-lg focus:outline-none focus:ring-1 focus:ring-slate-700"
             type="text"
             {...register("lastname")}
             placeholder="Apellido"
@@ -48,9 +48,9 @@ export const AuthForm = () => {
 
       <div className="flex flex-row justify-between">
         <div className="flex flex-col w-52">
-          <label htmlFor="label">Teléfono</label>
+          <label htmlFor="label" className="text-base font-medium pb-3">Teléfono</label>
           <input
-            className="mb-3 p-2 border rounded focus:outline-none focus:ring-1 focus:ring-slate-700"
+            className="mb-3 p-2 border rounded-lg focus:outline-none focus:ring-1 focus:ring-gray-400"
             type="text"
             {...register("phone")}
             placeholder="Teléfono"
@@ -59,9 +59,9 @@ export const AuthForm = () => {
           <span className="text-sm text-red-500">{errors.phone?.message}</span>
         </div>
         <div className="flex flex-col w-52">
-          <label htmlFor="label">Fecha de Nacimiento</label>
+          <label htmlFor="label" className="text-base font-medium pb-3">Fecha de Nacimiento</label>
           <input
-            className="mb-3 p-2 border rounded focus:outline-none focus:ring-1 focus:ring-slate-700"
+            className="mb-3 p-2 border rounded-lg focus:outline-none focus:ring-1 focus:ring-gray-400"
             type="date"
             {...register("birthdate")}
             placeholder="Fecha de Nacimiento"
@@ -73,9 +73,9 @@ export const AuthForm = () => {
         </div>
       </div>
 
-      <label htmlFor="label">Dirección</label>
+      <label htmlFor="label" className="text-base font-medium pb-3">Dirección</label>
       <input
-        className="mb-3 p-2 border rounded focus:outline-none focus:ring-1 focus:ring-slate-700"
+        className="mb-3 p-2 border rounded-lg focus:outline-none focus:ring-1 focus:ring-gray-400"
         type="text"
         {...register("address")}
         placeholder="Dirección"
@@ -83,9 +83,9 @@ export const AuthForm = () => {
       />
       <span className="text-sm text-red-500">{errors.address?.message}</span>
 
-      <label htmlFor="label">Usuario</label>
+      <label htmlFor="label" className="text-base font-medium pb-3">Usuario</label>
       <input
-        className="mb-3 p-2 border rounded focus:outline-none focus:ring-1 focus:ring-slate-700"
+        className="mb-3 p-2 border rounded-lg focus:outline-none focus:ring-1 focus:ring-gray-400"
         type="text"
         {...register("username")}
         placeholder="Usuario"
@@ -93,9 +93,9 @@ export const AuthForm = () => {
       />
       <span className="text-sm text-red-500">{errors.username?.message}</span>
 
-      <label htmlFor="label">Correo</label>
+      <label htmlFor="label" className="text-base font-medium pb-3">Correo</label>
       <input
-        className="mb-3 p-2 border rounded focus:outline-none focus:ring-1 focus:ring-slate-700"
+        className="mb-3 p-2 border rounded-lg focus:outline-none focus:ring-1 focus:ring-gray-400"
         type="email"
         {...register("email")}
         placeholder="Correo"
@@ -103,18 +103,18 @@ export const AuthForm = () => {
       />
       <span className="text-sm text-red-500">{errors.email?.message}</span>
 
-      <label htmlFor="label">Contraseña</label>
+      <label htmlFor="label" className="text-base font-medium pb-3">Contraseña</label>
       <input
-        className="mb-3 p-2 border rounded focus:outline-none focus:ring-1 focus:ring-slate-700"
+        className="mb-3 p-2 border rounded-lg focus:outline-none focus:ring-1 focus:ring-gray-400"
         type="password"
         {...register("password")}
         placeholder="Contraseña"
         defaultValue={initialValues.password}
       />
-      <span className="text-sm text-red-500">{errors.password?.message}</span>
+      <span className="text-sm text-red-500 ">{errors.password?.message}</span>
 
       <button
-        className="mt-4 bg-slate-900 text-white p-2 rounded hover:bg-black"
+        className="mt-4 bg-new-black text-white p-2 rounded-lg hover:bg-new-back-hover "
         type="submit"
       >
         Registrarse

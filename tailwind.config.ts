@@ -15,6 +15,8 @@ const config: Config = {
       colors: {
         background: "var(--background)",
         foreground: "var(--foreground)",
+        'new-black': '#18181b',
+        'new-back-hover': '#2F2F31',
       },
     },
   },
