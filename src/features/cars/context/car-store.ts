@@ -2,6 +2,7 @@ import { ICar } from "../models/ICar";
 import { createJSONStorage, persist } from "zustand/middleware";
 import { create, StateCreator } from "zustand";
 import { DataSourceImpl } from "../services/DataSource";
+import toast from "react-hot-toast";
 
 interface CarStore {
     cars: Partial<ICar>[];
@@ -26,6 +27,7 @@ export const useCarStore = create<CarStore>(
                 set({ loading: true });
                 const cars = await DataSourceImpl.getInstance().getAllCars();
                 set({cars: cars, loading: false});
+                
 
             },
             addCar: async (car: Partial<ICar>) => {
