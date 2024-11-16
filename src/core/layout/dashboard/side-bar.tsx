@@ -21,8 +21,7 @@ export const SideBar = () => {
     <div className="flex h-screen">
       {/* Contenedor principal que incluye botón y nav */}
       <div className={`
-        flex flex-col bg-gray-50
-        transition-all duration-500 ease-in-out
+        flex flex-col bg-white transition-all duration-500 ease-in-out border-r
         ${isClosed ? 'w-16' : 'w-64'}
       `}>
         {/* Botón de toggle */}
