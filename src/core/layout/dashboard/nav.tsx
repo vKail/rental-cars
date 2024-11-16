@@ -25,7 +25,7 @@ export const Nav = ({modules} : NavParams) => {
         return (
            <Link
             className='flex m-4 p-2 hover:rounded-md  hover:bg-gray-100' key={module.name}
-            href={`/dashboard/${module.name}`}
+            href={`/dashboard/${module.name.toLowerCase()}`}
           >
             <span>{module.name}</span>
           </Link>
