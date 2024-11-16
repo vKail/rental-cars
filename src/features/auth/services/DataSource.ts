@@ -19,14 +19,14 @@ import { UserAdapter } from "../adapters/UserAdapter"
          this.httpClient = AxiosClient.getInstance()
     }
 
-    async login(data: IAuth): Promise<IUser> {
-        const response = await this.httpClient.post<IAuthResponse>('users/sign_in', { data })
-        response.access_token && setToken(response.access_token)
+    async login(user: IAuth): Promise<IUser> {
+        const response = await this.httpClient.post<IAuthResponse>('users/sign_in', { user })
+        response.status.access_token && setToken(response.status.access_token)
         return UserAdapter.toDomain(response)
     }
 
-    async signup(data: IUser): Promise<IUser> {
-        const response = await this.httpClient.post<IAuthResponse>('users', { data })
+    async signup(user: IUser): Promise<IUser> {
+        const response = await this.httpClient.post<IAuthResponse>('users', { user })
         return UserAdapter.toDomain(response)
     }
 
