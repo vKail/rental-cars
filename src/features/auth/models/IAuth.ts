@@ -6,8 +6,12 @@ export interface IAuth {
 }
 
 export interface IAuthResponse {
+    status: IAuthResponseData;
+}
+
+interface IAuthResponseData {
     code:         number;
     message:      string;
     data:         IUser;
     access_token: string;
-}
+} 
