@@ -19,12 +19,10 @@ export const SideBar = () => {
 
   return (
     <div className="flex h-screen">
-      {/* Contenedor principal que incluye botón y nav */}
       <div className={`
         flex flex-col bg-white transition-all duration-500 ease-in-out border-r
         ${isClosed ? 'w-16' : 'w-64'}
       `}>
-        {/* Botón de toggle */}
         <div className="flex w-full p-2">
           <button 
             onClick={() => setIsClosed(!isClosed)}
@@ -36,8 +34,6 @@ export const SideBar = () => {
             <AlignJustify size={32} />
           </button>
         </div>
-
-        {/* Nav */}
         <div className={`
           flex-1  ease-in-out
           ${isClosed ? 'opacity-0 transition-opacity duration-150' : 'opacity-100 transition-opacity duration-500'}
