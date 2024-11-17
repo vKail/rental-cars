@@ -77,7 +77,7 @@ export const CarsFilterComponent = ({ models, years, dailyRates }: CarsFilterPro
         <div className="flex flex-col">
           <label className="font-medium p-1">Modelos</label>
           <Select>
-            <SelectTrigger className="w-[225px]">
+            <SelectTrigger className="w-[225px] hover:bg-gray-100">
               <SelectValue placeholder="Seleciona un modelo" />
             </SelectTrigger>
             <SelectContent>

@@ -29,12 +29,12 @@ export class DataSourceImpl implements DataSource {
         const response = await this.httpClient.get<ICarResponse>(`/api/v1/vehicles/${id}`)
         return response;
     };
-    async createCar (data: Partial<ICar>): Promise<Partial<ICar>>{
-        const response = await this.httpClient.post<ICarResponse>('/api/v1/vehicles', {data})
+    async createCar (vehicle: Partial<ICar>): Promise<Partial<ICar>>{
+        const response = await this.httpClient.post<ICarResponse>('/api/v1/vehicles', {vehicle})
         return CarsAdapter.toDomain(response);
     };
-    async updateCar (id: number, data: Partial<ICar>): Promise<Partial<ICar>>{
-        const response = await this.httpClient.put<ICarResponse>(`/api/v1/vehicles/${id}`, {data})
+    async updateCar (id: number, vehicle: Partial<ICar>): Promise<Partial<ICar>>{
+        const response = await this.httpClient.put<ICarResponse>(`/api/v1/vehicles/${id}`, {vehicle})
         return CarsAdapter.toDomain(response);
         
     };

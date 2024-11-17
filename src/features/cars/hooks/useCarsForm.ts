@@ -2,16 +2,16 @@ import * as yup from "yup";
 import { ICar } from "../models/ICar";
 import { useCarStore } from "../context/car-store";
 
-export const useCarForm = () => {
-    const {addCar} = useCarStore();
+export const useCarForm = (currentCar?: Partial<ICar>) => {
+    const {addCar, updateCar} = useCarStore();
   const defaultValues: Partial<ICar> = {
-    brand: '',
-    model: '',
-    license_plate: '',
-    year: 0,
-    vehicle_type: '',
-    status: '',
-    daily_rate: '',
+    brand: currentCar?.brand || '',
+    model: currentCar?.model || '',
+    license_plate: currentCar?.license_plate || '',
+    year: currentCar?.year || 0,
+    vehicle_type: currentCar?.vehicle_type || '',
+    status: currentCar?.status || '',
+    daily_rate: currentCar?.daily_rate || '',
   };
 
   const validationSchema = yup.object().shape({
@@ -25,7 +25,7 @@ export const useCarForm = () => {
   });
 
   const onSubmit = (values: Partial<ICar>) => {
-    addCar(values);
+    currentCar ? updateCar(values) : addCar(values);
   }
 
   return {

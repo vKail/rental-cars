@@ -1,10 +1,7 @@
 'use client'
-const CarsNewPage = () => {
-    return (
-        <>
-            <h1>New Car</h1>
-        </>
-    )
-}
+
+import { CarsCreateView } from "@/features/cars/presentation/views/cars-create-view";
+
+const CarsNewPage = () => <CarsCreateView />
 
 export default CarsNewPage;
