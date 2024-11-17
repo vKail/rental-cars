@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import { useCarStore } from "../../context/car-store";
-import { CarsFilterComponent } from "../components/cars-filter-component"
+import { CarsFilterComponent } from "../components/cars-filter"
 
 export const CarsFilterView = () => {
     const {cars, fetchCars} = useCarStore();

@@ -1,6 +1,6 @@
 import { useEffect } from "react";
 import { useCarStore } from "../../context/car-store";
-import { CarCardComponent } from "../components/cars-card-component";
+import { CarCardComponent } from "../components/cars-card";
 
 export const CarsCardView = () => {
     const {cars, fetchCars} = useCarStore();
@@ -8,8 +8,8 @@ export const CarsCardView = () => {
         fetchCars();
     }, [fetchCars]);
     return (
-        <>
+        <div>
             <CarCardComponent cars={cars}/>
-        </>
+        </div>
     )
 }

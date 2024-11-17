@@ -1,8 +1,8 @@
 import { ICar } from "../models/ICar";
 import { createJSONStorage, persist } from "zustand/middleware";
 import { create, StateCreator } from "zustand";
-import { DataSourceImpl } from "../services/DataSource";
 import toast from "react-hot-toast";
+import { DataSourceImpl } from "../services/DataSource";
 
 interface CarStore {
     cars: Partial<ICar>[];
