@@ -7,7 +7,7 @@ const CarEditPage = () => {
 
   return (
     <div>
-      <h1>Edit Car</h1>
+      <h1 >Editar el vehículo</h1>
       <CarsUpdateView id={Number(id)} />
     </div>
   );
