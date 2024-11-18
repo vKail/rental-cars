@@ -5,12 +5,7 @@ import { useParams } from "next/navigation";
 const CarEditPage = () => {
   const { id } = useParams();
 
-  return (
-    <div>
-      <h1>Edit Car</h1>
-      <CarsUpdateView id={Number(id)} />
-    </div>
-  );
+  return <CarsUpdateView id={Number(id)} />
 }
 
 export default CarEditPage;

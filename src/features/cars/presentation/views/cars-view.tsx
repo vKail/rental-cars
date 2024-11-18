@@ -1,3 +1,4 @@
+'use client'
 import { useEffect } from "react";
 import { useCarStore } from "../../context/car-store";
 import { CarCardComponent } from "../components/cars-card";

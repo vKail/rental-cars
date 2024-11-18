@@ -1,32 +1,29 @@
+
 import { usePathname } from "next/navigation"
-import { useRouter } from "next/router"
+import { useRouter } from "next/navigation";
 import { useCarStore } from "../context/car-store";
 import { useEffect } from "react";
 
 export const useCarView = () => {
     const router = useRouter();
     const pathName = usePathname();
-    const {fetchCars, deleteCar, cars } = useCarStore();
+    const {deleteCar  } = useCarStore();
 
-    useEffect(() => {
-        fetchCars();
-    }, [fetchCars]);
 
     const onDelete = (id: number) => {
         deleteCar(id);
     }
 
     const onEdit = (id: number) => {
-        router.push(`/cars/${id}/edit`);
+        router.push(`/dashboard/cars/edit/${id}`);
     }
 
     const onAdd = () => {
-        router.push('/cars/new');
+        router.push('/dashboard/cars/new');
     }
 
     return {
         pathName,
-        cars,
         onDelete,
         onEdit,
         onAdd

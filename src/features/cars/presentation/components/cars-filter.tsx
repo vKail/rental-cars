@@ -112,7 +112,7 @@ export const CarsFilterComponent = ({ models, years, dailyRates }: CarsFilterPro
          }
         </div>
         <div className="flex flex-col  w-32">
-          <button className="font-medium text-white border rounded-md bg-new-black hover:bg-new-back-hover m-2">
+          <button className="transition-colors font-medium text-white border rounded-md bg-new-black hover:bg-new-back-hover m-2">
             Filtrar
           </button>
         </div>

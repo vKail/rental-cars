@@ -1,9 +1,11 @@
 import { UseAuthStore } from "../context/auth-user-store"
 import * as yup from 'yup'
 import { IAuth } from "../models/IAuth";
+import { useRouter } from "next/navigation";
 
 export const useAuth = () => {
     const {login} = UseAuthStore();
+    const router = useRouter()
 
     const initialValues : IAuth = {
         email: '',
