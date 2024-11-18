@@ -114,7 +114,7 @@ export const AuthForm = () => {
       <span className="text-sm text-red-500 ">{errors.password?.message}</span>
 
       <button
-        className="mt-4 bg-new-black text-white p-2 rounded-lg hover:bg-new-back-hover "
+        className="transition-colors mt-4 bg-new-black text-white p-2 rounded-lg hover:bg-new-back-hover "
         type="submit"
       >
         Registrarse

@@ -87,7 +87,7 @@ export const CarsFrom = ({currentCar}: {currentCar?:Partial<ICar>}) => {
             <span className='text-red-500 text-sm'>{errors.daily_rate?.message}</span>
           <button
             type="submit"
-            className="mt-4 bg-new-black text-white p-2 rounded-lg hover:bg-new-back-hover"
+            className="transition-colors mt-4 bg-new-black text-white p-2 rounded-lg hover:bg-new-back-hover"
           >
             Agregar
           </button>

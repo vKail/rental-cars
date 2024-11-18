@@ -7,17 +7,6 @@ import { CarsCardView } from "@/features/cars/presentation/views/cars-view";
 
 const VehiclePage = () => {
     return (
-        // <div className="flex flex-row">
-        //     <div>
-        //         <CarsFilterView />
-        //     </div>
-        //     <div>
-        //         <h1>Vehicle Page</h1>
-        //         <CarsCardView />
-        //     </div>
-            
-           
-        // </div>
         <div>
             <CarsList />
         </div>
