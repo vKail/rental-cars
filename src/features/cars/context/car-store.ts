@@ -3,14 +3,16 @@ import { createJSONStorage, persist } from "zustand/middleware";
 import { create, StateCreator } from "zustand";
 import toast from "react-hot-toast";
 import { DataSourceImpl } from "../services/DataSource";
+import { ICarFilter } from "../models/ICarFilter";
 
 interface CarStore {
     cars: Partial<ICar>[];
     loading: boolean;
     error: string;
     fetchCars: () => void;
+    fetCarsByFilters : (params: Partial<ICarFilter>) => void
     addCar: (car: Partial<ICar>) => void;
-    updateCar: (car: Partial<ICar>) => void;
+    updateCar: (id: number, car: Partial<ICar>) => void;
     deleteCar: (id: number) => void;
 }
 
@@ -30,21 +32,22 @@ export const useCarStore = create<CarStore>(
                 
 
             },
+            fetCarsByFilters: async (params: Partial<ICarFilter>) => {
+                set({ loading: true });
+                const cars = await DataSourceImpl.getInstance().getAllCarsAvailablesByFilter(params);
+                set({cars: cars, loading: false});
+            },
+            
             addCar: async (car: Partial<ICar>) => {
                 set({ loading: true });
                 const newCar = await DataSourceImpl.getInstance().createCar(car);
                 set({ cars: [...get().cars, newCar], loading: false });
                
             },
-            updateCar: async (car: Partial<ICar>) => {
+            updateCar: async (id: number, car: Partial<ICar>) => {
                 set({ loading: true });
-                if (car.id !== undefined) {
-                    await DataSourceImpl.getInstance().updateCar(car.id, car);
-                    const updatedCars = get().cars.map((c) => c.id === car.id ? car : c);
-                    set({ cars: updatedCars, loading: false });
-                } else {
-                    set({ error: 'Car ID is undefined', loading: false });
-                }
+                    await DataSourceImpl.getInstance().updateCar(id, car);
+                
             },
             deleteCar: async (id: number) => {
                 set({ loading: true });

@@ -89,7 +89,7 @@ export const CarsFrom = ({currentCar}: {currentCar?:Partial<ICar>}) => {
             type="submit"
             className="transition-colors mt-4 bg-new-black text-white p-2 rounded-lg hover:bg-new-back-hover"
           >
-            Agregar
+            {currentCar ? "Actualizar" : "Crear"}
           </button>
         </div>
       </form>

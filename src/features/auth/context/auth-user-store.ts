@@ -3,6 +3,7 @@ import { IAuth } from "../models/IAuth"
 import { IUser } from "../models/IUser"
 import { createJSONStorage, persist } from "zustand/middleware"
 import { AuthDataSourceImpl } from "../services/DataSource"
+import toast from "react-hot-toast"
 
 export interface AuthStore {
     user: IUser | null
@@ -27,6 +28,10 @@ export const UseAuthStore = create<AuthStore>(
             login: async (data: IAuth) => {
                 set({ loading: true })
                 const user = await AuthDataSourceImpl.getInstance().login(data)
+                if(!user){
+                    toast.error('Usuario o contraseña incorrecta')
+                    return
+                }
                 set({ user, loading: false })
             },
             signup: async (data: IUser) => {
