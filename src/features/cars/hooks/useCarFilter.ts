@@ -23,7 +23,9 @@ export const useCarFilter = () => {
 
     const onSubmit = (values: Partial<ICarFilter>) => {
         fetCarsByFilters(values);
-    }
+        console.log(values);
+      };
+      
 
     return {
         defaultValues,

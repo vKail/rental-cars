@@ -3,7 +3,7 @@ import { useCarForm } from "../../hooks/useCarsForm";
 import { ICar } from "../../models/ICar";
 import { yupResolver } from "@hookform/resolvers/yup";
 
-export const CarsFrom = ({currentCar}: {currentCar?:Partial<ICar>}) => {
+export const CarsFrom = ({ currentCar }: { currentCar?: Partial<ICar> }) => {
   const { defaultValues, validationSchema, onSubmit } = useCarForm(currentCar);
   const {
     register,
@@ -16,7 +16,7 @@ export const CarsFrom = ({currentCar}: {currentCar?:Partial<ICar>}) => {
     <div className="flex flex-col w-screen max-w-2xl p-6 bg-white shadow-md border border-gray-200 rounded-2xl">
       <form onSubmit={handleSubmit(onSubmit)}>
         <div className="flex flex-col ">
-            <label className="text-base font-medium pb-3">Marca</label>
+          <label className="text-base font-medium pb-3">Marca</label>
           <input
             className="mb-3 p-2 border rounded-lg focus:outline-none focus:ring-1 focus:ring-gray-400"
             type="text"
@@ -24,9 +24,9 @@ export const CarsFrom = ({currentCar}: {currentCar?:Partial<ICar>}) => {
             {...register("brand")}
             defaultValue={defaultValues.brand}
           />
-            <span className='text-red-500 text-sm'>{errors.brand?.message}</span>
+          <span className="text-red-500 text-sm">{errors.brand?.message}</span>
 
-            <label className="text-base font-medium pb-3">Modelo</label>
+          <label className="text-base font-medium pb-3">Modelo</label>
           <input
             className="mb-3 p-2 border rounded-lg focus:outline-none focus:ring-1 focus:ring-gray-400"
             type="text"
@@ -34,9 +34,9 @@ export const CarsFrom = ({currentCar}: {currentCar?:Partial<ICar>}) => {
             {...register("model")}
             defaultValue={defaultValues.model}
           />
-            <span className='text-red-500 text-sm'>{errors.model?.message}</span>
+          <span className="text-red-500 text-sm">{errors.model?.message}</span>
 
-            <label className="text-base font-medium pb-3">Matricula</label>
+          <label className="text-base font-medium pb-3">Matricula</label>
           <input
             className="mb-3 p-2 border rounded-lg focus:outline-none focus:ring-1 focus:ring-gray-400"
             type="text"
@@ -44,9 +44,11 @@ export const CarsFrom = ({currentCar}: {currentCar?:Partial<ICar>}) => {
             {...register("license_plate")}
             defaultValue={defaultValues.license_plate}
           />
-            <span className='text-red-500 text-sm'>{errors.license_plate?.message}</span>
+          <span className="text-red-500 text-sm">
+            {errors.license_plate?.message}
+          </span>
 
-            <label className="text-base font-medium pb-3">Año</label>
+          <label className="text-base font-medium pb-3">Año</label>
           <input
             className="mb-3 p-2 border rounded-lg focus:outline-none focus:ring-1 focus:ring-gray-400"
             type="number"
@@ -54,9 +56,9 @@ export const CarsFrom = ({currentCar}: {currentCar?:Partial<ICar>}) => {
             {...register("year")}
             defaultValue={defaultValues.year}
           />
-            <span className='text-red-500 text-sm'>{errors.year?.message}</span>
+          <span className="text-red-500 text-sm">{errors.year?.message}</span>
 
-            <label className="text-base font-medium pb-3">Tipo de vehiculo</label>
+          <label className="text-base font-medium pb-3">Tipo de vehiculo</label>
           <input
             className="mb-3 p-2 border rounded-lg focus:outline-none focus:ring-1 focus:ring-gray-400"
             type="text"
@@ -64,9 +66,11 @@ export const CarsFrom = ({currentCar}: {currentCar?:Partial<ICar>}) => {
             {...register("vehicle_type")}
             defaultValue={defaultValues.vehicle_type}
           />
-            <span className='text-red-500 text-sm'>{errors.vehicle_type?.message}</span>
+          <span className="text-red-500 text-sm">
+            {errors.vehicle_type?.message}
+          </span>
 
-            <label className="text-base font-medium pb-3">Color</label>
+          <label className="text-base font-medium pb-3">Estado</label>
           <input
             className="mb-3 p-2 border rounded-lg focus:outline-none focus:ring-1 focus:ring-gray-400"
             type="text"
@@ -74,9 +78,9 @@ export const CarsFrom = ({currentCar}: {currentCar?:Partial<ICar>}) => {
             {...register("status")}
             defaultValue={defaultValues.status}
           />
-            <span className='text-red-500 text-sm'>{errors.status?.message}</span>
+          <span className="text-red-500 text-sm">{errors.status?.message}</span>
 
-            <label className="text-base font-medium pb-3">Costo diario</label>
+          <label className="text-base font-medium pb-3">Costo diario</label>
           <input
             className="mb-3 p-2 border rounded-lg focus:outline-none focus:ring-1 focus:ring-gray-400"
             type="text"
@@ -84,7 +88,9 @@ export const CarsFrom = ({currentCar}: {currentCar?:Partial<ICar>}) => {
             {...register("daily_rate")}
             defaultValue={defaultValues.daily_rate}
           />
-            <span className='text-red-500 text-sm'>{errors.daily_rate?.message}</span>
+          <span className="text-red-500 text-sm">
+            {errors.daily_rate?.message}
+          </span>
           <button
             type="submit"
             className="transition-colors mt-4 bg-new-black text-white p-2 rounded-lg hover:bg-new-back-hover"
