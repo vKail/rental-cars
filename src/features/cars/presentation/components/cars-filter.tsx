@@ -13,10 +13,14 @@ import {
   SelectValue,
 } from "@/components/ui/select";
 import { cn } from "@/lib/utils";
+import { yupResolver } from "@hookform/resolvers/yup";
 import { addDays, format } from "date-fns";
 import { CalendarIcon } from "lucide-react";
 import { useState } from "react";
 import { DateRange } from "react-day-picker";
+import { useForm } from "react-hook-form";
+import { useCarFilter } from "../../hooks/useCarFilter";
+import { ICarFilter } from "../../models/ICarFilter";
 
 interface CarsFilterProps {
   models: string[];
@@ -25,12 +29,16 @@ interface CarsFilterProps {
 }
 
 export const CarsFilterComponent = ({ models, years, dailyRates }: CarsFilterProps) => {
+  const {defaultValues, validationSchema, onSubmit} = useCarFilter();
   const [date, setDate] = useState<DateRange | undefined>({
     from: new Date(2024, 0, 20),
     to: addDays(new Date(2024, 0, 20), 366),
   });
+  const {register,formState: {errors}, handleSubmit} = useForm<ICarFilter>({
+    resolver: yupResolver(validationSchema),
+  });
   return (
-    <div>
+    <form onSubmit={handleSubmit(onSubmit)}>
       <div className="flex flex-col justify-start items-start w-64 h-2/3 border rounded-2xl shadow-sm p-2 m-4">
         <h1 className="text-2xl font-bold">Filtros</h1>
         <div className="flex flex-col">
@@ -117,6 +125,6 @@ export const CarsFilterComponent = ({ models, years, dailyRates }: CarsFilterPro
           </button>
         </div>
       </div>
-    </div>
+    </form>
   );
 };

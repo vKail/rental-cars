@@ -1,9 +1,11 @@
 import * as yup from "yup";
 import { ICar } from "../models/ICar";
 import { useCarStore } from "../context/car-store";
+import { useRouter } from "next/navigation";
 
 export const useCarForm = (currentCar?: Partial<ICar>) => {
     const {addCar, updateCar} = useCarStore();
+    const router = useRouter();
   const defaultValues: Partial<ICar> = {
     brand: currentCar?.brand || '',
     model: currentCar?.model || '',
@@ -25,7 +27,8 @@ export const useCarForm = (currentCar?: Partial<ICar>) => {
   });
 
   const onSubmit = (values: Partial<ICar>) => {
-    currentCar ? updateCar(values) : addCar(values);
+    currentCar !== undefined ? updateCar(currentCar.id ?? 0, values) : addCar(values);
+    router.push('/dashboard/cars/view');
   }
 
   return {

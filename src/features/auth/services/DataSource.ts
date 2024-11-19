@@ -9,7 +9,7 @@ import { UserAdapter } from "../adapters/UserAdapter"
  interface  AuthDataSource {
     login: (data: IAuth) => Promise<IUser>
     signup: (data: IUser) => Promise<IUser>
-    //logout: () => Promise<Status>
+    logout: () => void
 }
 
  export class AuthDataSourceImpl implements AuthDataSource {
@@ -28,6 +28,10 @@ import { UserAdapter } from "../adapters/UserAdapter"
     async signup(user: IUser): Promise<IUser> {
         const response = await this.httpClient.post<IAuthResponse>('users', { user })
         return UserAdapter.toDomain(response)
+    }
+
+    async logout(): Promise<void> {
+        setToken('')
     }
 
     static getInstance(): AuthDataSource {
