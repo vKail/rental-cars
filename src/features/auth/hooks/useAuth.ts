@@ -20,9 +20,6 @@ export const useAuth = () => {
     const onSubmit = async (values: IAuth) => {
            if( await login(values) == false) return;
             router.push('/dashboard')
-
-        
-        
     }
 
     return {
