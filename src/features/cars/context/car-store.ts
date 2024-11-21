@@ -10,7 +10,7 @@ interface CarStore {
     loading: boolean;
     error: string;
     fetchCars: () => void;
-    fetCarsByFilters : (params: Partial<ICarFilter>) => void
+    fetchCarsByFilters : (params: Partial<ICarFilter>) => void
     addCar: (car: Partial<ICar>) => void;
     updateCar: (id: number, car: Partial<ICar>) => void;
     deleteCar: (id: number) => void;
@@ -32,7 +32,7 @@ export const useCarStore = create<CarStore>(
                 
 
             },
-            fetCarsByFilters: async (params: Partial<ICarFilter>) => {
+            fetchCarsByFilters: async (params: Partial<ICarFilter>) => {
                 set({ loading: true });
                 const cars = await DataSourceImpl.getInstance().getAllCarsAvailablesByFilter(params);
                 set({cars: cars, loading: false});
