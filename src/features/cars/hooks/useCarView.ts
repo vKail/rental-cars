@@ -7,7 +7,7 @@ import { useEffect } from "react";
 export const useCarView = () => {
     const router = useRouter();
     const pathName = usePathname();
-    const {deleteCar  } = useCarStore();
+    const {deleteCar} = useCarStore();
 
 
     const onDelete = (id: number) => {

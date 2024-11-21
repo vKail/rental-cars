@@ -45,6 +45,7 @@ export const UseAuthStore = create<AuthStore>(
       logout: () => {
         set({ user: DEFAULT_USER });
         AxiosClient.setAccessToken('');
+        sessionStorage.clear();
       },
     }),
     {

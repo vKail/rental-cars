@@ -18,9 +18,9 @@ export const SideBar = () => {
   const [isClosed, setIsClosed] = useState(false);
 
   return (
-    <div className="flex h-screen">
+    <div className="flex">
       <div className={`
-        flex flex-col bg-white transition-all duration-500 ease-in-out border-r
+        flex flex-col bg-white transition-all duration-500 ease-in-out border-r 
         ${isClosed ? 'w-16' : 'w-64'}
       `}>
         <div className="flex w-full p-2">

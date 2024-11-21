@@ -13,7 +13,7 @@ export const NavBar = () => {
     router.push("/");
   }
   return (
-    <div className=" px-2 bg-white ">
+    <div className="sticky top-0 px-2 bg-white ">
       <nav className=" flex flex-row justify-between m-2 border-b ">
       <div className="flex flex-row justify-center items-center ">
         <h1 className="font-semibold">Rental-Cars</h1>

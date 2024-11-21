@@ -3,6 +3,7 @@ import { useForm } from "react-hook-form";
 import { useAuth } from "../../hooks/useAuth";
 import { yupResolver } from '@hookform/resolvers/yup';
 import { IAuth } from "../../models/IAuth";
+import Link from "next/link";
 
 export const LoginForm = () => {
     const { initialValues, validationSchema, onSubmit } = useAuth();
@@ -34,6 +35,18 @@ export const LoginForm = () => {
                 className="mb-3 p-2 border rounded-lg focus:outline-none focus:ring-1 focus:ring-gray-400"
             />
             <span className="text-red-500 text-sm">{errors.password?.message}</span>
+
+            <div className="">
+          <span className="text-slate-900 text-sm">
+            Olvidaste tu contraseña?
+          </span>
+          <Link href="/passwordRecovery">
+            <span className="text-blue-400 text-sm">
+              {" "}
+              <u>Haz click aquí</u>
+            </span>
+          </Link>
+        </div>
 
             <button
                 type="submit"

@@ -31,9 +31,12 @@ export default function RootLayout({
       <body
         className={`${geistSans.variable} ${geistMono.variable} antialiased`}
       >
+        <div className="flex flex-col">
         <NavBar  />
         {children}
-        <Footer />
+        {/* <Footer /> */}
+        </div>
+        
         <Toaster position="top-right"/>
       </body>
     </html>

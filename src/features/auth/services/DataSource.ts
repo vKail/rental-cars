@@ -4,13 +4,14 @@ import { AxiosClient } from "@/core/infrestructure/http/AxiosClient"
 import { IUser } from "../models/IUser"
 import { setToken } from "@/core/providers/TokenUtils"
 import { UserAdapter } from "../adapters/UserAdapter"
-import { IRecoveryEmail } from "../models/IRecovery"
+import { IRecoveryEmail, IRecoveryPassword } from "../models/IRecovery"
 
 
  interface  AuthDataSource {
     login: (data: IAuth) => Promise<IUser>
     signup: (data: IUser) => Promise<IUser>
     recoveryPassword: (data: IRecoveryEmail) => Promise<void>
+    changePassword: (data: Partial<IRecoveryPassword>) => Promise<void>
     logout: () => void
 }
 
@@ -36,8 +37,12 @@ import { IRecoveryEmail } from "../models/IRecovery"
         setToken('')
     }
 
-    async recoveryPassword(email: IRecoveryEmail): Promise<void> {
-        await this.httpClient.post('users/recovery_password', { email })
+    async recoveryPassword(user: IRecoveryEmail): Promise<void> {
+        await this.httpClient.post('users/password', { user })
+    }
+
+    async changePassword(user: Partial<IRecoveryPassword>): Promise<void> {
+        await this.httpClient.put('users/password', { user })
     }
 
     static getInstance(): AuthDataSource {

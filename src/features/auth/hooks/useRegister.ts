@@ -1,9 +1,11 @@
+import { useRouter } from "next/navigation";
 import { UseAuthStore } from "../context/auth-user-store";
 import { IUser } from "../models/IUser"
 import * as yup from 'yup'
 
 export const useRegister = () => {
     const {signup} = UseAuthStore();
+    const router = useRouter()
     const initialValues : IUser = {
         email: '',
         password: '',
@@ -28,6 +30,7 @@ export const useRegister = () => {
 
     const onSubmit = async (values: IUser) => {
         signup(values)
+        router.push('/dashboard')
     }
 
     return {

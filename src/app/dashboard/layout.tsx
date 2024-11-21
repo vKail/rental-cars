@@ -3,16 +3,11 @@ import { Footer } from "@/core/layout/footer";
 
 const DashboardLayout = ({ children }: { children: React.ReactNode }) => {
   return (
-    <div className="flex flex-col h-screen">
-      <div className="flex">
-        <div className="flex p-0">
+    <div className="flex flex-1">
+          <div className="">
           <SideBar />
-        </div>
+          </div>
         <div className=" flex-1 p-4">{children}</div>
-      </div>
-      <div>
-        <Footer />
-      </div>
     </div>
   );
 };
