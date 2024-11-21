@@ -5,6 +5,7 @@ import { createJSONStorage, persist } from "zustand/middleware";
 import { AuthDataSourceImpl } from "../services/DataSource";
 import toast from "react-hot-toast";
 import { useRouter } from "next/navigation";
+import { AxiosClient } from "@/core/infrestructure/http/AxiosClient";
 
 export interface AuthStore {
   user: IUser | null;
@@ -43,6 +44,7 @@ export const UseAuthStore = create<AuthStore>(
       },
       logout: () => {
         set({ user: DEFAULT_USER });
+        AxiosClient.setAccessToken('');
       },
     }),
     {

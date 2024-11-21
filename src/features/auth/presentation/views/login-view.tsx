@@ -3,7 +3,7 @@ import { LoginForm } from "../components/login-form";
 
 export const LoginView = () => {
   return (
-    <div className="flex flex-col  h-screen items-center justify-center p-10 bg-white">
+    <div className="flex flex-col h-screen items-center justify-center p-10 bg-white">
       <div className="text-center mb-8">
         <h1 className="text-3xl font-bold mb-2">Rental-Cars</h1>
         <h2 className="text-lg text-gray-700">
