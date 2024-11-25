@@ -1,9 +1,13 @@
 'use client'
+import { Nav } from "@/core/layout/dashboard/nav";
+import { NavBar } from "@/core/layout/navbar";
 import Image from "next/image";
 import { useRouter } from "next/navigation";
 
 export default function Home() {
  return (
+    <>
+    <NavBar/>
   <div className="container mx-auto px-4 py-16">
 
   <div className="text-center max-w-4xl mx-auto mb-12">
@@ -69,5 +73,6 @@ export default function Home() {
       </div>
   </div> */}
 </div>
+    </>
  )
 }

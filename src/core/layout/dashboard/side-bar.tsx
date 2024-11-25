@@ -4,6 +4,7 @@ import { AlignJustify, Calendar, CarFront, Filter, LayoutDashboard, List, Plus, 
 import { useState } from 'react';
 import { Nav } from './nav';
 import { IModule } from '@/shared/interfaces/IModule';
+import { useSidebar } from '@/components/ui/sidebar';
 
 const modules: IModule[] = [
   {
@@ -12,12 +13,12 @@ const modules: IModule[] = [
       icon: LayoutDashboard,
       subModules: [
           {
-              name: "list",
+              name: "view",
               label: "Lista",
               icon: List,
           },
           {
-              name: "create",
+              name: "new",
               label: "Crear",
               icon: Plus,
           },
@@ -29,17 +30,17 @@ const modules: IModule[] = [
       icon: CarFront,
       subModules: [
           {
-              name: "list",
+              name: "view",
               label: "Lista",
               icon: List,
           },
           {
-              name: "create",
+              name: "new",
               label: "Crear",
               icon: Plus,
           },
           {
-              name: "filters",
+              name: "information",
               label: "Buscar",
               icon: Filter,
           },
@@ -83,6 +84,15 @@ const modules: IModule[] = [
 
 export const SideBar = () => {
   const [isClosed, setIsClosed] = useState(false);
+  const {
+    state,
+    open,
+    setOpen,
+    openMobile,
+    setOpenMobile,
+    isMobile,
+    toggleSidebar,
+  } = useSidebar()
 
   return (
     <div className="flex">
