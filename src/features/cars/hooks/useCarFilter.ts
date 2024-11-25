@@ -16,7 +16,9 @@ export const useCarFilter = () => {
         fetchCarsByFilters(values);
       };
 
-      const onReset = () => {}
+      const onReset = () => {
+        
+      }
       
 
     return {

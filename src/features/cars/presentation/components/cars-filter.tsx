@@ -13,21 +13,30 @@ import { ICarFilter } from "../../models/ICarFilter";
 interface CarsFilterProps {
   models: string[];
   years: number[];
-  dailyRates: string[];
+  minRates: string[];
+  maxRates: string[];
 }
 
 export const CarsFilterComponent = ({
   models,
   years,
-  dailyRates,
+  minRates,
+  maxRates,
 }: CarsFilterProps) => {
   const { onSubmit } = useCarFilter();
   const [filterValues, setFilterValues] = useState<Partial<ICarFilter>>({});
+  const [selectedModel, setSelectedModel] = useState<string>("");
+
   const handleInputChange = useCallback(
     (key: keyof ICarFilter, value: string | number, checked?: boolean) => {
       setFilterValues((prev) => {
         const newValues = { ...prev };
+        
         if (key === "models") {
+          setSelectedModel(value as string);
+          newValues[key] = [value as string];
+        } else if (key === "min_price" || key === "max_price") {
+          // Para min_price y max_price, solo guardamos el valor seleccionado
           newValues[key] = [value as string];
         } else {
           const currentArray = newValues[key] || [];
@@ -42,14 +51,22 @@ export const CarsFilterComponent = ({
             delete newValues[key];
           }
         }
-        if (Object.keys(newValues).length > 0) {
+        
+        setTimeout(() => {
           onSubmit(newValues);
-        }
+        }, 0);
+        
         return newValues;
       });
     },
     [onSubmit]
   );
+  
+  const handleClearFilters = useCallback(() => {
+    setSelectedModel("");
+    setFilterValues({});
+    onSubmit({});
+  }, [onSubmit]);
 
   return (
     <div className="flex flex-col justify-start items-start w-64 h-2/3 border rounded-2xl shadow-sm p-4 m-4">
@@ -59,6 +76,7 @@ export const CarsFilterComponent = ({
           <div className="flex flex-col">
             <label className="font-medium p-1">Modelos</label>
             <Select
+              value={selectedModel}
               onValueChange={(value) => handleInputChange("models", value)}
             >
               <SelectTrigger>
@@ -78,9 +96,10 @@ export const CarsFilterComponent = ({
             {years.map((year) => (
               <div key={year}>
                 <input
-                  className="border rounded-md accent-gray-100 "
+                  className="border rounded-md accent-gray-100"
                   type="checkbox"
                   value={year}
+                  checked={filterValues.years?.includes(year) || false}
                   onChange={(e) =>
                     handleInputChange("years", year, e.target.checked)
                   }
@@ -91,14 +110,16 @@ export const CarsFilterComponent = ({
           </div>
           <div className="flex flex-col">
             <label className="font-medium">Selecciona un valor mínimo</label>
-            {dailyRates.map((rate) => (
+            {minRates.map((rate) => (
               <div key={rate}>
                 <input
-                  className="border rounded-md accent-gray-100 "
-                  type="checkbox"
+                  className="border rounded-md accent-gray-100"
+                  type="radio"
+                  name="min_price"
                   value={rate}
+                  checked={filterValues.min_price?.[0] === rate}
                   onChange={(e) =>
-                    handleInputChange("min_price", rate, e.target.checked)
+                    handleInputChange("min_price", rate)
                   }
                 />
                 <label className="px-2">{rate}</label>
@@ -107,14 +128,16 @@ export const CarsFilterComponent = ({
           </div>
           <div className="flex flex-col">
             <label className="font-medium">Selecciona un valor máximo</label>
-            {dailyRates.map((rate) => (
+            {maxRates.map((rate) => (
               <div key={rate}>
                 <input
-                  className="border rounded-md accent-gray-100 "
-                  type="checkbox"
+                  className="border rounded-md accent-gray-100"
+                  type="radio"
+                  name="max_price"
                   value={rate}
+                  checked={filterValues.max_price?.[0] === rate}
                   onChange={(e) =>
-                    handleInputChange("max_price", rate, e.target.checked)
+                    handleInputChange("max_price", rate)
                   }
                 />
                 <label className="px-2">{rate}</label>
@@ -123,9 +146,12 @@ export const CarsFilterComponent = ({
           </div>
         </div>
       </form>
-      <button className="transition-colors mt-4 bg-new-black text-white p-2 rounded-lg hover:bg-new-back-hover">
+      <Button 
+        onClick={handleClearFilters} 
+        className="transition-colors mt-4 bg-new-black text-white p-2 rounded-lg hover:bg-new-back-hover"
+      >
         Limpiar Filtro
-      </button>
+      </Button>
     </div>
   );
 };

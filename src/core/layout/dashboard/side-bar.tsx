@@ -1,21 +1,98 @@
 "use client";
 
-import { AlignJustify } from 'lucide-react';
+import { AlignJustify, Calendar, CarFront, Filter, LayoutDashboard, List, Plus, User } from 'lucide-react';
 import { useState } from 'react';
 import { Nav } from './nav';
 import { IModule } from '@/shared/interfaces/IModule';
+import { useSidebar } from '@/components/ui/sidebar';
 
 const modules: IModule[] = [
-  { name: 'Dashboard', subModules: [] },
-  { name: 'Users', subModules: [] },
-  { name: 'Cars', subModules: [] },
-  { name: 'Reservations', subModules: [] },
-  { name: 'Reports', subModules: [] },
-  { name: 'Settings', subModules: [] },
+  {
+      name: "Dashboard",
+      label: "Dashboard",
+      icon: LayoutDashboard,
+      subModules: [
+          {
+              name: "view",
+              label: "Lista",
+              icon: List,
+          },
+          {
+              name: "new",
+              label: "Crear",
+              icon: Plus,
+          },
+      ],
+  },
+  {
+      name: "Cars",
+      label: "Carros",
+      icon: CarFront,
+      subModules: [
+          {
+              name: "view",
+              label: "Lista",
+              icon: List,
+          },
+          {
+              name: "new",
+              label: "Crear",
+              icon: Plus,
+          },
+          {
+              name: "information",
+              label: "Buscar",
+              icon: Filter,
+          },
+      ],
+  },
+  {
+      name: "Users",
+      label: "Usuarios",
+      icon: User,
+      subModules: [
+          {
+              name: "list",
+              label: "Lista",
+              icon: List,
+          },
+          {
+              name: "create",
+              label: "Crear",
+              icon: Plus,
+          },
+      ],
+  },
+  {
+      name: "Reservations",
+      label: "Reservaciones",
+      icon: Calendar,
+      subModules: [
+          {
+              name: "list",
+              label: "Lista",
+              icon: List,
+          },
+          {
+              name: "create",
+              label: "Crear",
+              icon: Plus,
+          },
+      ],
+  },
 ];
 
 export const SideBar = () => {
   const [isClosed, setIsClosed] = useState(false);
+  const {
+    state,
+    open,
+    setOpen,
+    openMobile,
+    setOpenMobile,
+    isMobile,
+    toggleSidebar,
+  } = useSidebar()
 
   return (
     <div className="flex">

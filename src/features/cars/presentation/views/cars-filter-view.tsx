@@ -7,18 +7,19 @@ export const CarsFilterView = () => {
     const {cars, fetchCars} = useCarStore();
     const [models, setModels] = useState<string[]>([]);
     const [years, setYears] = useState<number[]>([]);
-    const [dailyRates, setDailyRates] = useState<string[]>([]);
+    const minRates = ["10.00", "20.00", "30.00", "40.00", "50.00"];
+    const maxRates = ["100.00", "200.00", "300.00", "400.00", "500.00"];
     cars.forEach((car) => {
         if (car.model && !models.includes(car.model)) setModels([...models, car.model]);
         if (car.year && !years.includes(car.year)) setYears([...years, car.year]);
-        if (car.daily_rate && !dailyRates.includes(car.daily_rate)) setDailyRates([...dailyRates, car.daily_rate]);
+        
     });
     useEffect(() => {
         fetchCars();
     }, [fetchCars])
     return (
         <div>
-            <CarsFilterComponent models={models} years={years} dailyRates={dailyRates} />
+            <CarsFilterComponent models={models} years={years} minRates={minRates} maxRates={maxRates} />
         </div>
     )
 }
