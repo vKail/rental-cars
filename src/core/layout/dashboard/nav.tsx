@@ -27,7 +27,7 @@ export const Nav = ({modules} : NavParams) => {
             className='flex m-4 p-2 hover:rounded-md  hover:bg-gray-100' key={module.name}
             href={module.name.toLowerCase() == 'dashboard' ? '/dashboard' : `/dashboard/${module.name.toLowerCase()}/view`}
           >
-            <span>{module.name}</span>
+            <span>{module.label}</span>
           </Link>
         );
       })}

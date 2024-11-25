@@ -1,17 +1,84 @@
 "use client";
 
-import { AlignJustify } from 'lucide-react';
+import { AlignJustify, Calendar, CarFront, Filter, LayoutDashboard, List, Plus, User } from 'lucide-react';
 import { useState } from 'react';
 import { Nav } from './nav';
 import { IModule } from '@/shared/interfaces/IModule';
 
 const modules: IModule[] = [
-  { name: 'Dashboard', subModules: [] },
-  { name: 'Users', subModules: [] },
-  { name: 'Cars', subModules: [] },
-  { name: 'Reservations', subModules: [] },
-  { name: 'Reports', subModules: [] },
-  { name: 'Settings', subModules: [] },
+  {
+      name: "Dashboard",
+      label: "Dashboard",
+      icon: LayoutDashboard,
+      subModules: [
+          {
+              name: "list",
+              label: "Lista",
+              icon: List,
+          },
+          {
+              name: "create",
+              label: "Crear",
+              icon: Plus,
+          },
+      ],
+  },
+  {
+      name: "Cars",
+      label: "Carros",
+      icon: CarFront,
+      subModules: [
+          {
+              name: "list",
+              label: "Lista",
+              icon: List,
+          },
+          {
+              name: "create",
+              label: "Crear",
+              icon: Plus,
+          },
+          {
+              name: "filters",
+              label: "Buscar",
+              icon: Filter,
+          },
+      ],
+  },
+  {
+      name: "Users",
+      label: "Usuarios",
+      icon: User,
+      subModules: [
+          {
+              name: "list",
+              label: "Lista",
+              icon: List,
+          },
+          {
+              name: "create",
+              label: "Crear",
+              icon: Plus,
+          },
+      ],
+  },
+  {
+      name: "Reservations",
+      label: "Reservaciones",
+      icon: Calendar,
+      subModules: [
+          {
+              name: "list",
+              label: "Lista",
+              icon: List,
+          },
+          {
+              name: "create",
+              label: "Crear",
+              icon: Plus,
+          },
+      ],
+  },
 ];
 
 export const SideBar = () => {
