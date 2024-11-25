@@ -19,17 +19,7 @@ export const LoginView = () => {
             <u>Registrate aquí</u>
           </span>
         </Link>
-        <div className="">
-          <span className="text-slate-900 text-sm">
-            Olvidaste tu contraseña?
-          </span>
-          <Link href="/passwordRecovery">
-            <span className="text-blue-400 text-sm">
-              {" "}
-              <u>Haz click aquí</u>
-            </span>
-          </Link>
-        </div>
+       
       </div>
     </div>
   );

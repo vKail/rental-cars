@@ -1,11 +1,22 @@
-import { useForm } from "react-hook-form";
+import { Controller, useForm } from "react-hook-form";
 import { useCarForm } from "../../hooks/useCarsForm";
 import { ICar } from "../../models/ICar";
 import { yupResolver } from "@hookform/resolvers/yup";
+import {
+  Select,
+  SelectContent,
+  SelectGroup,
+  SelectItem,
+  SelectLabel,
+  SelectTrigger,
+  SelectValue,
+} from "@/components/ui/select";
+import { CarStatus } from "../../models/CarStatus";
 
 export const CarsFrom = ({ currentCar }: { currentCar?: Partial<ICar> }) => {
   const { defaultValues, validationSchema, onSubmit } = useCarForm(currentCar);
   const {
+    control,
     register,
     formState: { errors },
     handleSubmit,
@@ -36,6 +47,15 @@ export const CarsFrom = ({ currentCar }: { currentCar?: Partial<ICar> }) => {
           />
           <span className="text-red-500 text-sm">{errors.model?.message}</span>
 
+          <label className="text-base font-medium pb-3">Imagen</label>
+          <input
+            className="mb-3 p-2 border rounded-lg focus:outline-none focus:ring-1 focus:ring-gray-400"
+            type="text"
+            placeholder="Imagen"
+            {...register("image")}
+            defaultValue={defaultValues.image}
+          />
+          <span className="text-red-500 text-sm">{errors.image?.message}</span>
           <label className="text-base font-medium pb-3">Matricula</label>
           <input
             className="mb-3 p-2 border rounded-lg focus:outline-none focus:ring-1 focus:ring-gray-400"
@@ -71,12 +91,32 @@ export const CarsFrom = ({ currentCar }: { currentCar?: Partial<ICar> }) => {
           </span>
 
           <label className="text-base font-medium pb-3">Estado</label>
-          <input
-            className="mb-3 p-2 border rounded-lg focus:outline-none focus:ring-1 focus:ring-gray-400"
-            type="text"
-            placeholder="Estado"
-            {...register("status")}
+          <Controller
+            name="status"
+            control={control}
             defaultValue={defaultValues.status}
+            render={({ field }) => (
+              <Select
+                value={field.value}
+                onValueChange={field.onChange} // Vincula el cambio de valor
+              >
+                <SelectTrigger className="w-[180px] mb-3 p-2 border rounded-lg focus:outline-none focus:ring-1 focus:ring-gray-400">
+                  <SelectValue placeholder="Selecciona el estado" />
+                </SelectTrigger>
+                <SelectContent>
+                  <SelectGroup>
+                    <SelectLabel>Estados</SelectLabel>
+                    <SelectItem value={CarStatus.AVAILABLE}>
+                      Disponible
+                    </SelectItem>
+                    <SelectItem value={CarStatus.UNAVAILABLE}>
+                      No disponible
+                    </SelectItem>
+                    <SelectItem value={CarStatus.DAMAGED}>Dañado</SelectItem>
+                  </SelectGroup>
+                </SelectContent>
+              </Select>
+            )}
           />
           <span className="text-red-500 text-sm">{errors.status?.message}</span>
 

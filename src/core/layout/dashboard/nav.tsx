@@ -10,7 +10,7 @@ interface NavParams {
 
 export const Nav = ({modules} : NavParams) => {
   return (
-    <aside className="w-full">
+    <aside className="w-full ">
      <div className='flex justify-center align-middle'>
      <Image
         src="/images/logo.png"
