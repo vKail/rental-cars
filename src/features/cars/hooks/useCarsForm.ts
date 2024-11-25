@@ -18,14 +18,14 @@ export const useCarForm = (currentCar?: Partial<ICar>) => {
   };
 
   const validationSchema = yup.object().shape({
-    brand: yup.string().required("Brand is required"),
-    model: yup.string().required("Model is required"),
-    license_plate: yup.string().required("License plate is required"),
-    year: yup.number().required("Year is required").min(1900).max(2024),
-    vehicle_type: yup.string().required("Vehicle type is required"),
-    status: yup.string().required("Status is required"),
-    daily_rate: yup.string().required("Daily rate is required"),
-    image: yup.string().required("Image is required"),
+    brand: yup.string().required("La marca es requerida"),
+    model: yup.string().required("El modelo es requerido"),
+    license_plate: yup.string().required("La placa es requerida"),
+    year: yup.number().required("El año es requerido ").min(1999).max(2024),
+    vehicle_type: yup.string().required("El tipo de vehículo es requerido"),
+    status: yup.string().required("El estado es requerido"),
+    daily_rate: yup.string().required("El precio diario es requerido").min(1).max(500),
+    image: yup.string().required("La imagen es requerida"),
   });
 
   const onSubmit = (values: Partial<ICar>) => {
