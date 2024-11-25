@@ -16,7 +16,7 @@ export const CarCardComponent = ({ cars }: CarCardViewProps) => {
           <div className="flex flex-col ">
             <Image
               className="rounded-xl m-2"
-              src="/images/vehicle.png"
+              src={car.image || "/default-car.jpg"}
               alt={car.model || "Default Model"}
               width={210}
               height={200}
