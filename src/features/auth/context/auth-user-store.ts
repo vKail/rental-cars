@@ -1,6 +1,6 @@
 import { create, StateCreator } from "zustand";
 import { IAuth } from "../models/IAuth";
-import { IUser } from "../models/IUser";
+import { IUser } from "../../users/models/IUser";
 import { createJSONStorage, persist } from "zustand/middleware";
 import { AuthDataSourceImpl } from "../services/DataSource";
 import toast from "react-hot-toast";
@@ -8,7 +8,7 @@ import { useRouter } from "next/navigation";
 import { AxiosClient } from "@/core/infrestructure/http/AxiosClient";
 
 export interface AuthStore {
-  user: IUser | null;
+  user: Partial<IUser> | null;
   setUser: (user: IUser) => void;
   loading: boolean;
   login: (data: IAuth) => Promise<boolean>;

@@ -1,6 +1,6 @@
 import { useRouter } from "next/navigation";
 import { UseAuthStore } from "../context/auth-user-store";
-import { IUser } from "../models/IUser"
+import { IUser } from "../../users/models/IUser"
 import * as yup from 'yup'
 
 export const useRegister = () => {

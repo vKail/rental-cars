@@ -2,7 +2,7 @@
 import { useForm } from "react-hook-form";
 import { useRegister } from "../../hooks/useRegister";
 import { yupResolver } from "@hookform/resolvers/yup";
-import { IUser } from "../../models/IUser";
+import { IUser } from "../../../users/models/IUser";
 
 export const AuthForm = () => {
   const { initialValues, validationSchema, onSubmit } = useRegister();

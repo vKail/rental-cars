@@ -1,4 +1,4 @@
-import { IUser } from "./IUser";
+import { IUser } from "../../users/models/IUser";
 
 export interface IAuth {
     email: string;
