@@ -22,7 +22,7 @@ export class UserDataSourceImpl implements DataSource {
 
   async getAllUsers(): Promise<IUser[]> {
     try {
-      const response = await this.httpClient.get<IUser[]>("users");
+      const response = await this.httpClient.get<IUser[]>("api/v1/users");
       return response;
     } catch (error) {
       toast.error("No se puede obtener todos los usuarios");
@@ -32,7 +32,7 @@ export class UserDataSourceImpl implements DataSource {
 
   async getUserById(id: number): Promise<IUser> {
     try {
-      const response = await this.httpClient.get<IUserResponse>(`users/${id}`);
+      const response = await this.httpClient.get<IUserResponse>(`/api/v1/users/${id}`);
       return UserAdapter.toDomain(response);
     } catch (error) {
       toast.error("El usuario no se ha encontrado");
@@ -54,7 +54,7 @@ export class UserDataSourceImpl implements DataSource {
 
   async updateUser(id: number, user: Omit<IUser, "id">): Promise<IUser> {
     try {
-      const response = await this.httpClient.put<IUserResponse>(`users/${id}`, {
+      const response = await this.httpClient.put<IUserResponse>(`api/v1/users/${id}`, {
         user,
       });
       return UserAdapter.toDomain(response);
