@@ -6,7 +6,7 @@ import { UserAdapter } from "../adapters/UserAdapter";
 import toast from "react-hot-toast";
 
 interface DataSource {
-  getAllUsers: () => Promise<IUserResponse[]>;
+  getAllUsers: () => Promise<IUser[]>;
   getUserById: (id: number) => Promise<IUser>;
   createUser: (data: Omit<IUser, "id">) => Promise<IUser>;
   updateUser: (id: number, data: Omit<IUser, "id">) => Promise<IUser>;
@@ -20,9 +20,9 @@ export class UserDataSourceImpl implements DataSource {
     this.httpClient = AxiosClient.getInstance();
   }
 
-  async getAllUsers(): Promise<IUserResponse[]> {
+  async getAllUsers(): Promise<IUser[]> {
     try {
-      const response = await this.httpClient.get<IUserResponse[]>("users");
+      const response = await this.httpClient.get<IUser[]>("users");
       return response;
     } catch (error) {
       toast.error("No se puede obtener todos los usuarios");
@@ -66,5 +66,9 @@ export class UserDataSourceImpl implements DataSource {
 
   async deleteUser(id: number): Promise<void> {
     const response = await this.httpClient.delete(`users/${id}`);
+  }
+
+  static getInstance(): DataSource {
+    return new UserDataSourceImpl()
   }
 }
