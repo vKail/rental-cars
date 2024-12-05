@@ -8,8 +8,8 @@ import toast from "react-hot-toast";
 interface DataSource {
   getAllUsers: () => Promise<IUser[]>;
   getUserById: (id: number) => Promise<IUser>;
-  createUser: (data: Omit<IUser, "id">) => Promise<IUser>;
-  updateUser: (id: number, data: Omit<IUser, "id">) => Promise<IUser>;
+  createUser: (data: Partial<IUser>) => Promise<IUser>;
+  updateUser: (id: number, data: Partial<IUser>) => Promise<IUser>;
   deleteUser: (id: number) => Promise<void>;
 }
 
@@ -40,7 +40,7 @@ export class UserDataSourceImpl implements DataSource {
     }
   }
 
-  async createUser(user: Omit<IUser, "id">): Promise<IUser> {
+  async createUser(user: Partial<IUser>): Promise<IUser> {
     try {
       const response = await this.httpClient.post<IUserResponse>("users", {
         user,
@@ -52,7 +52,7 @@ export class UserDataSourceImpl implements DataSource {
     }
   }
 
-  async updateUser(id: number, user: Omit<IUser, "id">): Promise<IUser> {
+  async updateUser(id: number, user: Partial<IUser>): Promise<IUser> {
     try {
       const response = await this.httpClient.put<IUserResponse>(`api/v1/users/${id}`, {
         user,
