@@ -1,15 +1,15 @@
 import { HttpHandler } from "@/core/interfaces/HttpHandler"
 import { IAuth, IAuthResponse } from "../models/IAuth"
 import { AxiosClient } from "@/core/infrestructure/http/AxiosClient"
-import { IUser } from "../models/IUser"
+import { IUser } from "../../users/models/IUser"
 import { setToken } from "@/core/providers/TokenUtils"
-import { UserAdapter } from "../adapters/UserAdapter"
 import { IRecoveryEmail, IRecoveryPassword } from "../models/IRecovery"
+import { AuthAdapter } from "../adapters/AuthAdapter"
 
 
  interface  AuthDataSource {
-    login: (data: IAuth) => Promise<IUser>
-    signup: (data: IUser) => Promise<IUser>
+    login: (data: IAuth) => Promise<Partial<IUser>>
+    signup: (data: Omit<IUser, 'id'>) => Promise<Partial<IUser>>
     recoveryPassword: (data: IRecoveryEmail) => Promise<void>
     changePassword: (data: Partial<IRecoveryPassword>) => Promise<void>
     logout: () => void
@@ -22,15 +22,15 @@ import { IRecoveryEmail, IRecoveryPassword } from "../models/IRecovery"
          this.httpClient = AxiosClient.getInstance()
     }
 
-    async login(user: IAuth): Promise<IUser> {
+    async login(user: IAuth): Promise<Partial<IUser>> {
         const response = await this.httpClient.post<IAuthResponse>('users/sign_in', { user })
         response.status.access_token && setToken(response.status.access_token)
-        return UserAdapter.toDomain(response)
+        return AuthAdapter.toDomain(response)
     }
 
-    async signup(user: IUser): Promise<IUser> {
+    async signup(user: Omit<IUser, 'id'>): Promise<Partial<IUser>> {
         const response = await this.httpClient.post<IAuthResponse>('users', { user })
-        return UserAdapter.toDomain(response)
+        return AuthAdapter.toDomain(response)
     }
 
     async logout(): Promise<void> {

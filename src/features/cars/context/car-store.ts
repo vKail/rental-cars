@@ -54,8 +54,6 @@ export const useCarStore = create<CarStore>(
                 const cars = get().cars.filter((c) => c.id !== id);
                 set({ cars, loading: false });
                 await DataSourceImpl.getInstance().deleteCar(id);
-
-                
             },
         }),
         {

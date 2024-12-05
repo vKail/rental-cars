@@ -1,8 +1,8 @@
 import { IAuth, IAuthResponse } from "../models/IAuth";
-import { IUser } from "../models/IUser";
+import { IUser } from "../../users/models/IUser";
 
-export class UserAdapter {
-  static toDomain(data: IAuthResponse): IUser {
+export class AuthAdapter {
+  static toDomain(data: IAuthResponse): Partial<IUser> {
     return {
       email: data.status.data.email,
       password: data.status.data.password,
@@ -12,6 +12,7 @@ export class UserAdapter {
       phone: data.status.data.phone,
       birthdate: data.status.data.birthdate,
       username: data.status.data.username,
+      role: data.status.data.role
     };
   }
 }
