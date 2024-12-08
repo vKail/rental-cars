@@ -1,11 +1,11 @@
 import * as yup from "yup";
-import { IUser } from "../models/IUser";
+import { IUser, IUserCreate } from "../models/IUser";
 import { lastDayOfDecade } from "date-fns";
 import { useUserStore } from "../context/user-store";
 
 export const useUserForm = (currentUser?: Partial<IUser>) => {
   const {createUser, updateUser} = useUserStore();
-  const defaultValues: Partial<IUser> = {
+  const initialValues: Omit<IUser, 'id'> = {
     email: "",
     password: currentUser?.password || "",
     name: currentUser?.name || "",
@@ -29,7 +29,13 @@ export const useUserForm = (currentUser?: Partial<IUser>) => {
     username: yup.string().required("El nombre de usuario es requerido"),
   })
 
-  const onSubmit = (values: Partial<IUser>) => {
+  const onSubmit = (values: IUserCreate) => {
     currentUser ? updateUser(currentUser.id as number, values) : createUser(values)
+  }
+
+  return {
+    initialValues,
+    validationSchema,
+    onSubmit
   }
 };

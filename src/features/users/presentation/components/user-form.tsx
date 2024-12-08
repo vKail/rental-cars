@@ -1,16 +1,19 @@
 "use client";
-import { useForm } from "react-hook-form";
-import { useRegister } from "../../hooks/useRegister";
+import { Controller, useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
-import { IUser, IUserRegister } from "../../../users/models/IUser";
+import { IUser, IUserRegister, UserRoles } from "../../../users/models/IUser";
+import { useUserForm } from "../../hooks/useUserForm";
+import { Select, SelectContent, SelectGroup, SelectItem, SelectLabel, SelectValue } from "@/components/ui/select";
+import { SelectTrigger } from "@radix-ui/react-select";
 
 export const AuthForm = () => {
-  const { initialValues, validationSchema, onSubmit } = useRegister();
+  const { initialValues, validationSchema, onSubmit } = useUserForm();
   const {
     register,
     formState: { errors },
     handleSubmit,
-  } = useForm<IUserRegister>({
+    control,
+  } = useForm<Omit<IUser, 'id'>>({
     resolver: yupResolver(validationSchema),
   });
 
@@ -112,7 +115,37 @@ export const AuthForm = () => {
         defaultValue={initialValues.password}
       />
       <span className="text-sm text-red-500 ">{errors.password?.message}</span>
-
+          <label className="text-base font-medium pb-3">Estado</label>
+          <Controller
+            name="role"
+            control={control}
+            defaultValue={initialValues.role}
+            render={({ field }) => (
+              <Select
+                value={field.value}
+                onValueChange={field.onChange} 
+              >
+                <SelectTrigger className="w-[180px] mb-3 p-2 border rounded-lg focus:outline-none focus:ring-1 focus:ring-gray-400">
+                  <SelectValue placeholder="Selecciona el estado" />
+                </SelectTrigger>
+                <SelectContent>
+                  <SelectGroup>
+                    <SelectLabel>Estados</SelectLabel>
+                    <SelectItem value={UserRoles.ADMINISTRATOR}>
+                      Administrador
+                    </SelectItem>
+                    <SelectItem value={UserRoles.CLIENT}>
+                      Cliente
+                    </SelectItem>
+                    <SelectItem value={UserRoles.USER}>
+                      Empleado
+                    </SelectItem>
+                  </SelectGroup>
+                </SelectContent>
+              </Select>
+            )}
+          />
+ 
       <button
         className="transition-colors mt-4 bg-new-black text-white p-2 rounded-lg hover:bg-new-back-hover "
         type="submit"

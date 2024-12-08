@@ -9,7 +9,7 @@ import { AuthAdapter } from "../adapters/AuthAdapter"
 
  interface  AuthDataSource {
     login: (data: IAuth) => Promise<Partial<IUser>>
-    signup: (data: Omit<IUser, 'id'>) => Promise<Partial<IUser>>
+    signup: (data: Partial<IUser>) => Promise<Partial<IUser>>
     recoveryPassword: (data: IRecoveryEmail) => Promise<void>
     changePassword: (data: Partial<IRecoveryPassword>) => Promise<void>
     logout: () => void
@@ -28,7 +28,7 @@ import { AuthAdapter } from "../adapters/AuthAdapter"
         return AuthAdapter.toDomain(response)
     }
 
-    async signup(user: Omit<IUser, 'id'>): Promise<Partial<IUser>> {
+    async signup(user: Partial<IUser>): Promise<Partial<IUser>> {
         const response = await this.httpClient.post<IAuthResponse>('users', { user })
         return AuthAdapter.toDomain(response)
     }

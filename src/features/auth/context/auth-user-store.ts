@@ -12,7 +12,7 @@ export interface AuthStore {
   setUser: (user: IUser) => void;
   loading: boolean;
   login: (data: IAuth) => Promise<boolean>;
-  signup: (data: IUser) => void;
+  signup: (data: Partial<IUser>) => void;
   logout: () => void;
 }
 
@@ -37,7 +37,7 @@ export const UseAuthStore = create<AuthStore>(
           return false
         }
       },
-      signup: async (data: IUser) => {
+      signup: async (data:Partial<IUser>) => {
         set({ loading: true });
         const user = await AuthDataSourceImpl.getInstance().signup(data);
         set({ user, loading: false });
