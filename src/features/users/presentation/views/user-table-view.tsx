@@ -3,7 +3,7 @@ import { useUserView } from "../../hooks/useUserView";
 import { useUserStore } from "../../context/user-store";
 import { UsersTable } from "../components/user-table";
 
-export const CarsList = () => {
+export const UsersList = () => {
     const {users, fetchUsers} = useUserStore();
     const {onAdd} = useUserView();
     useEffect(() => {

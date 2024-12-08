@@ -1,7 +1,7 @@
 import { useUserStore } from "../../context/user-store"
 import { UserForm } from "../components/user-form"
 
-export const UsersCreateView = ({id} : {id: number}) => {
+export const UsersUpdateView = ({id} : {id: number}) => {
     const {users} = useUserStore(); 
     const currentUser = users.find(user => user.id === id);
 
