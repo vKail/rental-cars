@@ -1,5 +1,5 @@
 import { create, StateCreator } from "zustand";
-import { IUser } from "../models/IUser";
+import { IUser, IUserCreate } from "../models/IUser";
 import { createJSONStorage, persist } from "zustand/middleware";
 import { UserDataSourceImpl } from "../services/DataSource";
 
@@ -7,8 +7,8 @@ interface UserStore {
   users: Partial<IUser>[];
   error: string;
   fetchUsers: () => void;
-  createUser: (user: Partial<IUser>) => void;
-  updateUser: (id: number, user: Partial<IUser>) => void;
+  createUser: (user: IUserCreate) => void;
+  updateUser: (id: number, user: IUserCreate) => void;
   deleteUser: (id: number) => void;
 }
 
@@ -24,11 +24,11 @@ export const useUserStore = create<UserStore>(
                 const users = await UserDataSourceImpl.getInstance().getAllUsers();
                 set({users: users})
             },
-            createUser : async (user: Partial<IUser> ) => {
+            createUser : async (user: IUserCreate ) => {
                 const newUser = await UserDataSourceImpl.getInstance().createUser(user)
                 set({users : [...get().users, newUser]})
             },
-            updateUser : async (id: number, user: Partial<IUser>) => {
+            updateUser : async (id: number, user: IUserCreate) => {
                 await UserDataSourceImpl.getInstance().updateUser(id, user)   
             },
             deleteUser : async (id: number) => {

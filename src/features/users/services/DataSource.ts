@@ -1,5 +1,5 @@
 import { HttpHandler } from "@/core/interfaces/HttpHandler";
-import { IUser, IUserResponse } from "../models/IUser";
+import { IUser, IUserCreate, IUserResponse } from "../models/IUser";
 import { AxiosClient } from "@/core/infrestructure/http/AxiosClient";
 import { IAuthResponse } from "@/features/auth/models/IAuth";
 import { UserAdapter } from "../adapters/UserAdapter";
@@ -8,8 +8,8 @@ import toast from "react-hot-toast";
 interface DataSource {
   getAllUsers: () => Promise<IUser[]>;
   getUserById: (id: number) => Promise<IUser>;
-  createUser: (data: Partial<IUser>) => Promise<IUser>;
-  updateUser: (id: number, data: Partial<IUser>) => Promise<IUser>;
+  createUser: (data: IUserCreate) => Promise<IUser>;
+  updateUser: (id: number, data: IUserCreate) => Promise<IUser>;
   deleteUser: (id: number) => Promise<void>;
 }
 
@@ -40,7 +40,7 @@ export class UserDataSourceImpl implements DataSource {
     }
   }
 
-  async createUser(user: Partial<IUser>): Promise<IUser> {
+  async createUser(user: IUserCreate): Promise<IUser> {
     try {
       const response = await this.httpClient.post<IUserResponse>("users", {
         user,
@@ -52,7 +52,7 @@ export class UserDataSourceImpl implements DataSource {
     }
   }
 
-  async updateUser(id: number, user: Partial<IUser>): Promise<IUser> {
+  async updateUser(id: number, user: IUserCreate): Promise<IUser> {
     try {
       const response = await this.httpClient.put<IUserResponse>(`api/v1/users/${id}`, {
         user,

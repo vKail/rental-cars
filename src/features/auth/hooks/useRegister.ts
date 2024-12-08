@@ -1,12 +1,12 @@
 import { useRouter } from "next/navigation";
 import { UseAuthStore } from "../context/auth-user-store";
-import { IUser } from "../../users/models/IUser"
+import { IUser, IUserRegister } from "../../users/models/IUser"
 import * as yup from 'yup'
 
 export const useRegister = () => {
     const {signup} = UseAuthStore();
     const router = useRouter()
-    const initialValues : IUser = {
+    const initialValues : IUserRegister = {
         email: '',
         password: '',
         name: '',
@@ -28,7 +28,7 @@ export const useRegister = () => {
         username: yup.string().required('El nombre de usuario es requerido')
     })
 
-    const onSubmit = async (values: IUser) => {
+    const onSubmit = async (values: Partial<IUser>) => {
         signup(values)
         router.push('/dashboard')
     }
