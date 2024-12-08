@@ -6,7 +6,7 @@ import { useUserForm } from "../../hooks/useUserForm";
 import { Select, SelectContent, SelectGroup, SelectItem, SelectLabel, SelectValue } from "@/components/ui/select";
 import { SelectTrigger } from "@radix-ui/react-select";
 
-export const AuthForm = () => {
+export const UserForm = ({currentUser} : {currentUser? : Partial<IUser>}) => {
   const { initialValues, validationSchema, onSubmit } = useUserForm();
   const {
     register,
