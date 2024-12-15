@@ -3,11 +3,12 @@ import { UserForm } from "../components/user-form"
 
 export const UsersUpdateView = ({id} : {id: number}) => {
     const {users} = useUserStore(); 
-    const currentUser = users.find(user => user.id === id);
+    const currentUser = users?.find(user => user.id === id);
+    console.log(currentUser)
 
     return (
         <div className="flex flex-col items-center justify-center p-10 bg-white">
-            <h1 className="font-bold text-2xl p-2">Agregar un nuevo usuario</h1>
+            <h1 className="font-bold text-2xl p-2">Editar usuario</h1>
             <UserForm currentUser={currentUser}/>
         </div>
     )

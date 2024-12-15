@@ -1,15 +1,16 @@
 import { HttpHandler } from "@/core/interfaces/HttpHandler";
-import { IUser, IUserCreate, IUserResponse } from "../models/IUser";
+import { IUser, IUserCreate} from "../models/IUser";
 import { AxiosClient } from "@/core/infrestructure/http/AxiosClient";
-import { IAuthResponse } from "@/features/auth/models/IAuth";
 import { UserAdapter } from "../adapters/UserAdapter";
 import toast from "react-hot-toast";
+import { IAuthResponse } from "@/features/auth/models/IAuth";
+import { IRegisterResponse } from "@/features/auth/models/IRegister";
 
 interface DataSource {
   getAllUsers: () => Promise<IUser[]>;
   getUserById: (id: number) => Promise<IUser>;
-  createUser: (data: IUserCreate) => Promise<IUser>;
-  updateUser: (id: number, data: IUserCreate) => Promise<IUser>;
+  createUser: (data: IUserCreate) => Promise<Omit<IUser, 'id' | 'jti' >>;
+  updateUser: (id: number, data: IUserCreate) => Promise<Omit<IUser, 'id' | 'jti' >>;
   deleteUser: (id: number) => Promise<void>;
 }
 
@@ -21,51 +22,31 @@ export class UserDataSourceImpl implements DataSource {
   }
 
   async getAllUsers(): Promise<IUser[]> {
-    try {
       const response = await this.httpClient.get<IUser[]>("api/v1/users");
       return response;
-    } catch (error) {
-      toast.error("No se puede obtener todos los usuarios");
-      throw new Error("Usuarios no encontrados");
     }
-  }
 
   async getUserById(id: number): Promise<IUser> {
-    try {
-      const response = await this.httpClient.get<IUserResponse>(`/api/v1/users/${id}`);
-      return UserAdapter.toDomain(response);
-    } catch (error) {
-      toast.error("El usuario no se ha encontrado");
-      throw new Error("Usuario no encontrado");
+      const response = await this.httpClient.get<IUser>(`/api/v1/users/${id}`);
+      return response;
     }
-  }
 
-  async createUser(user: IUserCreate): Promise<IUser> {
-    try {
-      const response = await this.httpClient.post<IUserResponse>("users", {
+  async createUser(user: IUserCreate): Promise<Omit<IUser, 'id' | 'jti' >> {
+      const response = await this.httpClient.post<IRegisterResponse>("users", {
         user,
       });
       return UserAdapter.toDomain(response);
-    } catch (error) {
-      toast.error("No se pudo crear el usuario");
-      throw new Error("No se pudo crear el usuario");
-    }
   }
 
-  async updateUser(id: number, user: IUserCreate): Promise<IUser> {
-    try {
-      const response = await this.httpClient.put<IUserResponse>(`api/v1/users/${id}`, {
+  async updateUser(id: number, user: IUserCreate): Promise<Omit<IUser, 'id' | 'jti' >> {
+      const response = await this.httpClient.put<IUser>(`api/v1/users/${id}`, {
         user,
       });
-      return UserAdapter.toDomain(response);
-    } catch (error) {
-      toast.error("No se pudo actualizar al cliente");
-      throw new Error("Error al actualizar el usuario");
-    }
+      return response;
   }
 
   async deleteUser(id: number): Promise<void> {
-    const response = await this.httpClient.delete(`users/${id}`);
+    const response = await this.httpClient.delete(`api/v1/users/${id}`);
   }
 
   static getInstance(): DataSource {

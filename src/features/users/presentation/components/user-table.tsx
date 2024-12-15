@@ -7,7 +7,6 @@ import {
   TableHeader,
   TableRow,
 } from "@/components/ui/table";
-import { useEffect } from "react";
 import { Pencil, Trash, Trash2 } from "lucide-react";
 import Image from "next/image";
 import { useUserView } from "../../hooks/useUserView";
@@ -40,12 +39,15 @@ export const UsersTable = ({ users }: usersTableProps) => {
             <TableRow key={user.id}>
               <TableCell>{user.name}</TableCell>
               <TableCell>{user.lastname}</TableCell>
+              <TableCell>{user.username}</TableCell>
               <TableCell>{user.email}</TableCell>
               <TableCell>{user.address}</TableCell>
               <TableCell>{user.phone}</TableCell>
               <TableCell>
-                {user.birthdate ? user.birthdate.toDateString() : ""}
-              </TableCell>
+  {user.birthdate
+    ? new Date(user.birthdate).toDateString() // Convertir la cadena a Date
+    : ""}
+</TableCell>
               <TableCell>{user.role}</TableCell>
               <TableCell>
                 <button

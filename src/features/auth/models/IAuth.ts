@@ -1,4 +1,4 @@
-import { IUser } from "../../users/models/IUser";
+import { IRegister } from "./IRegister";
 
 export interface IAuth {
     email: string;
@@ -12,6 +12,6 @@ export interface IAuthResponse {
 interface IAuthResponseData {
     code:         number;
     message:      string;
-    data:         IUser;
+    data:         IRegister;
     access_token: string;
 } 
