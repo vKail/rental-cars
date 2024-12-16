@@ -1,5 +1,6 @@
 import Image from "next/image";
 import { ICar } from "../../models/ICar";
+import Link from "next/link";
 
 interface CarCardViewProps {
   cars: Partial<ICar>[];
@@ -38,9 +39,9 @@ export const CarCardComponent = ({ cars }: CarCardViewProps) => {
               <p className="font-medium pr-1">Costo diario:</p> {car.daily_rate}{" "}
               $
             </h1>
-            <button className=" font-light text-white border rounded-md bg-new-black hover:bg-new-back-hover m-2">
+            <Link href={`/dashboard/cars/reservation/${car.id}`} className=" font-light text-white border rounded-md bg-new-black hover:bg-new-back-hover m-2">
               Alquilar
-            </button>
+            </Link>
           </div>
         </div>
       ))}
