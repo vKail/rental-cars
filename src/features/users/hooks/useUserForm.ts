@@ -2,18 +2,21 @@ import * as yup from "yup";
 import { IUser, IUserCreate } from "../models/IUser";
 import { lastDayOfDecade } from "date-fns";
 import { useUserStore } from "../context/user-store";
+import { IRegister } from "@/features/auth/models/IRegister";
+import { useRouter } from "next/navigation";
 
 export const useUserForm = (currentUser?: Partial<IUser>) => {
   const {createUser, updateUser} = useUserStore();
-  const initialValues: Omit<IUser, 'id'> = {
-    email: "",
+  const router = useRouter();
+  const initialValues: Partial<IUser> = {
+    email: currentUser?.email || "",
     password: currentUser?.password || "",
     name: currentUser?.name || "",
     lastname: currentUser?.lastname || "",
     address: currentUser?.address || "",
     role: currentUser?.role || "",
     phone: currentUser?.phone || "",
-    birthdate: currentUser?.birthdate || new Date(),
+birthdate: currentUser?.birthdate ? new Date(currentUser.birthdate) : new Date(),
     username: currentUser?.username || "",
   };
 
@@ -30,7 +33,8 @@ export const useUserForm = (currentUser?: Partial<IUser>) => {
   })
 
   const onSubmit = (values: IUserCreate) => {
-    currentUser ? updateUser(currentUser.id as number, values) : createUser(values)
+    currentUser ? updateUser(currentUser.id as number, values): createUser(values)
+    router.push('/dashboard/users/view')
   }
 
   return {

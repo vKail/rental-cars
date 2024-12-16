@@ -7,7 +7,6 @@ import { ICarFilter } from "../models/ICarFilter";
 
 interface CarStore {
     cars: Partial<ICar>[];
-    loading: boolean;
     error: string;
     fetchCars: () => void;
     fetchCarsByFilters : (params: Partial<ICarFilter>) => void
@@ -23,36 +22,26 @@ export const useCarStore = create<CarStore>(
     persist(
         (set, get) => ({
             cars: [],
-            loading: false,
             error: '',
             fetchCars: async () => {
-                set({ loading: true });
                 const cars = await DataSourceImpl.getInstance().getAllCars();
-                set({cars: cars, loading: false});
-                
-
+                set({cars: cars});
             },
             fetchCarsByFilters: async (params: Partial<ICarFilter>) => {
-                set({ loading: true });
                 const cars = await DataSourceImpl.getInstance().getAllCarsAvailablesByFilter(params);
-                set({cars: cars, loading: false});
+                set({cars: cars});
             },
             
             addCar: async (car: Partial<ICar>) => {
-                set({ loading: true });
                 const newCar = await DataSourceImpl.getInstance().createCar(car);
-                set({ cars: [...get().cars, newCar], loading: false });
                
             },
             updateCar: async (id: number, car: Partial<ICar>) => {
-                set({ loading: true });
                     await DataSourceImpl.getInstance().updateCar(id, car);
                 
             },
             deleteCar: async (id: number) => {
-                set({ loading: true });
-                const cars = get().cars.filter((c) => c.id !== id);
-                set({ cars, loading: false });
+                set({cars : get().cars.filter(car => car.id !== id)})
                 await DataSourceImpl.getInstance().deleteCar(id);
             },
         }),

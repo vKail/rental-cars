@@ -10,11 +10,11 @@ export const useUserView = () => {
   };
 
   const onEdit = (id: number) => {
-    router.push(`/dashboard/users/${id}`);
+    router.push(`/dashboard/users/edit/${id}`);
   };
 
   const onAdd = () => {
-    router.push(`/dashboard/users/create`);
+    router.push(`/dashboard/users/new`);
   };
 
   return {

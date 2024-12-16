@@ -1,26 +1,27 @@
+import { IRegister } from "@/features/auth/models/IRegister";
+
 export interface IUser {
- id: number; email: string; password: string;
-  name: string;
-  lastname: string;
-  address: string;
-  role: string;
-  phone: string;
-  birthdate: Date;
-  username: string;
+  id:         number;
+  email:      string;
+  password?:  string;
+  // created_at: Date;
+  // updated_at: Date;
+  jti:        string;
+  name:       string;
+  lastname:   string;
+  address:    string;
+  phone:      string;
+  birthdate:  Date;
+  username:   string;
+  role:       string;
 }
 
-export interface IUserCreate extends Omit<IUser, 'id'>{}
+export interface IUserCreate extends IRegister{}
 
-export interface IUserRegister extends Omit<IUser, 'id' | 'role'>{}
-
-export interface IUserResponse {
-  code: number;
-  message: string;
-  data: IUser;
-}
+export interface IUserRegister extends Omit<IRegister, 'role'>{}
 
 export enum UserRoles {
   CLIENT = 'client',
-  ADMINISTRATOR = 'administrator',
+  ADMINISTRATOR = 'administrador',
   USER = 'user'
 }

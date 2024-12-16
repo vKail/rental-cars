@@ -6,13 +6,14 @@ import { AuthDataSourceImpl } from "../services/DataSource";
 import toast from "react-hot-toast";
 import { useRouter } from "next/navigation";
 import { AxiosClient } from "@/core/infrestructure/http/AxiosClient";
+import { IRegister } from "../models/IRegister";
 
 export interface AuthStore {
   user: Partial<IUser> | null;
   setUser: (user: IUser) => void;
   loading: boolean;
   login: (data: IAuth) => Promise<boolean>;
-  signup: (data: Partial<IUser>) => void;
+  signup: (data: IRegister) => void;
   logout: () => void;
 }
 
@@ -37,7 +38,7 @@ export const UseAuthStore = create<AuthStore>(
           return false
         }
       },
-      signup: async (data:Partial<IUser>) => {
+      signup: async (data: IRegister) => {
         set({ loading: true });
         const user = await AuthDataSourceImpl.getInstance().signup(data);
         set({ user, loading: false });

@@ -26,13 +26,13 @@ export const useUserStore = create<UserStore>(
             },
             createUser : async (user: IUserCreate ) => {
                 const newUser = await UserDataSourceImpl.getInstance().createUser(user)
-                set({users : [...get().users, newUser]})
+                set({users : [...(get().users), newUser as Partial<IUser>]})
             },
             updateUser : async (id: number, user: IUserCreate) => {
                 await UserDataSourceImpl.getInstance().updateUser(id, user)   
             },
             deleteUser : async (id: number) => {
-                const user = get().users?.filter(user => user.id != id )
+                const user = get().users.filter(user => user.id != id )
                 set({users: user})
                 await UserDataSourceImpl.getInstance().deleteUser(id)
             }

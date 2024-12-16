@@ -17,7 +17,7 @@ export const UsersList = () => {
                     onClick={() => onAdd()}
                 >Nuevo</button>
             </div>
-            <UsersTable users={users} />
+            <UsersTable users={users || []} />
         </div>
     )
 }
