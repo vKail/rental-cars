@@ -1,18 +1,19 @@
 import { create, StateCreator } from "zustand";
-import { IReservation, IReservationData } from "../models/IReservation";
+import { IReservation, IReservationData, IReservationResponse } from "../models/IReservation";
 import { persist } from "zustand/middleware";
 import { ReservationDataSourceImpl } from "../services/DataSource";
 
 interface ReservationStore {
-    reservations: IReservation[],
+    reservations: IReservationResponse[],
     fetchAllReservations:() => void,
+    fetchAllReservationsByUser:() => void,
     addReservation:(reservation: IReservationData) => void,
     updateReservation:(id: number, reservation: IReservationData) => void,
     deleteReservation:(id: number) => void,
 }
 
 const STORE_NAME = 'reservation';
-const DEFAULT_RESERVATIONS: IReservation[] = [];
+const DEFAULT_RESERVATIONS: IReservationResponse[] = [];
 
 export const useReservationStore = create<ReservationStore>(
     persist((set, get) => ({
@@ -20,6 +21,10 @@ export const useReservationStore = create<ReservationStore>(
        fetchAllReservations: async () => {
             const reservation = await ReservationDataSourceImpl.getInstance().getAllReservations();
             set({reservations : reservation})
+       },
+       fetchAllReservationsByUser: async () => {
+            const reservation = await ReservationDataSourceImpl.getInstance().getAllReservationsByUser();
+            set({reservations: reservation})
        },
        addReservation: async (reservation: IReservationData) => {
             const newReservation = await ReservationDataSourceImpl.getInstance().createReservation(reservation);

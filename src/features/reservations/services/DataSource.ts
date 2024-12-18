@@ -6,13 +6,12 @@ import {
 } from "../models/IReservation";
 import { HttpHandler } from "@/core/interfaces/HttpHandler";
 import { AxiosClient } from "@/core/infrestructure/http/AxiosClient";
-import toast from "react-hot-toast";
-import { errorToJSON } from "next/dist/server/render";
 import { ReservationAdapter } from "../adapters/ReservationAdapter";
 
 interface DataSource {
   getAllReservations: () => Promise<IReservationResponse[]>;
-  getReservationById: (id: number) => Promise<IReservation>;
+  getAllReservationsByUser: () => Promise<IReservationResponse[]>;
+  getReservationById: (id: number) => Promise<IReservationResponse>;
   createReservation: (data: IReservationData) => Promise<IReservation>;
   updateReservation: (
     id: number,
@@ -34,11 +33,16 @@ export class ReservationDataSourceImpl implements DataSource {
     return response;
   }
 
-  async getReservationById(id: number): Promise<IReservation> {
+  async getAllReservationsByUser(): Promise<IReservationResponse[]> {
+    const response = await this.httpClient.get<IReservationResponse[]>('/api/v1/reservations/reservations_user')
+    return response;
+  }
+
+  async getReservationById(id: number): Promise<IReservationResponse> {
     const response = await this.httpClient.get<IReservationResponse>(
       `api/v1/reservations/${id}`
     );
-    return ReservationAdapter.toDomain(response);
+    return response;
   }
 
   async createReservation(
