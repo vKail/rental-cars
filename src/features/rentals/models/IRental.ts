@@ -1,5 +1,6 @@
 
 export interface IRental {
+    id:                 number;
     reservation_id:     number;
     actual_refund_date: Date;
     car_status:         number;
@@ -9,7 +10,7 @@ export interface IRental {
     damages?:            Damage[];
 }
 
-export interface IRentalCreate extends Omit<IRental, "reservation_id" | "actual_refund_date"> {}
+export interface IRentalCreate extends Omit<IRental, "id" | "actual_refund_date"> {}
 
 export interface IRentalUpdate extends IRental {
     damages:            Damage[];
@@ -21,10 +22,8 @@ export interface Damage {
 }
 
 export enum RentalStatus {
-    AVAILABLE = 1,
-    UNAVAILABLE = 2,
-    DAMAGED = 3,
-    RESERVED = 4
+    GOOD = 0,
+    BAD = 1,
 }
 
 export interface IRentalResponse {

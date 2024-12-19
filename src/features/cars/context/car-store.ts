@@ -9,6 +9,7 @@ interface CarStore {
     cars: Partial<ICar>[];
     error: string;
     fetchCars: () => void;
+    fetchCarsAvialable: () => void;
     fetchCarsByFilters : (params: Partial<ICarFilter>) => void
     addCar: (car: Partial<ICar>) => void;
     updateCar: (id: number, car: Partial<ICar>) => void;
@@ -25,6 +26,10 @@ export const useCarStore = create<CarStore>(
             error: '',
             fetchCars: async () => {
                 const cars = await DataSourceImpl.getInstance().getAllCars();
+                set({cars: cars});
+            },
+            fetchCarsAvialable: async () => {
+                const cars = await DataSourceImpl.getInstance().getAllCarsAvailables();
                 set({cars: cars});
             },
             fetchCarsByFilters: async (params: Partial<ICarFilter>) => {

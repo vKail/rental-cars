@@ -4,10 +4,10 @@ import { useCarStore } from "../../context/car-store";
 import { CarCardComponent } from "../components/cars-card";
 
 export const CarsCardView = () => {
-    const {cars, fetchCars} = useCarStore();
+    const {cars, fetchCarsAvialable} = useCarStore();
     useEffect(() => {
-        fetchCars();
-    }, [fetchCars]);
+        fetchCarsAvialable();
+    }, [fetchCarsAvialable]);
     return (
         <div>
             <CarCardComponent cars={cars}/>

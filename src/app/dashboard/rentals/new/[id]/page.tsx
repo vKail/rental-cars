@@ -4,8 +4,16 @@ import { RentalCreateView } from "@/features/rentals/presentation/views/rental-c
 import { useParams } from "next/navigation";
 
 
-const RentalsNewPage = () => <RentalCreateView />
-
+const RentalsNewPage = () => {
 const {id} = useParams();
+    return (
+        <>
+            <RentalCreateView id={Number(id)}/>
+        </>
+    )
+
+}
+
+
 
 export default RentalsNewPage;

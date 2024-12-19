@@ -40,6 +40,12 @@ export const modules: IModule[] = [
               label: "Buscar",
               icon: Filter,
           },
+          {
+                name: "reservations",
+                label: "Reservaciones",
+                icon: Calendar,
+          },
+
       ],
   },
   {
@@ -60,19 +66,14 @@ export const modules: IModule[] = [
       ],
   },
   {
-      name: "Reservations",
-      label: "Reservaciones",
+      name: "Rentals",
+      label: "Rentas",
       icon: Calendar,
       subModules: [
           {
-              name: "list",
+              name: "view",
               label: "Lista",
               icon: List,
-          },
-          {
-              name: "create",
-              label: "Crear",
-              icon: Plus,
           },
       ],
   },

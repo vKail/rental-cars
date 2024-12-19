@@ -8,13 +8,15 @@ export const useRentalForm = (currentRental?: IRental) => {
     const router = useRouter();
 
     const createDefaultValues: IRentalCreate = {
-        car_status: RentalStatus.AVAILABLE,
+        reservation_id: 0,
+        car_status: RentalStatus.GOOD,
         initial_odometer: 0,
         final_odometer: 0,
         rate_id: 0,
     };
 
     const updateDefaultValues: IRentalUpdate = currentRental ? {
+        id: currentRental.id,
         reservation_id: currentRental.reservation_id,
         actual_refund_date: currentRental.actual_refund_date,
         car_status: currentRental.car_status,
@@ -23,9 +25,10 @@ export const useRentalForm = (currentRental?: IRental) => {
         rate_id: currentRental.rate_id,
         damages: currentRental.damages || []
     } : {
+        id: 0,
         reservation_id: 0,
         actual_refund_date: new Date(),
-        car_status: RentalStatus.AVAILABLE,
+        car_status: RentalStatus.GOOD,
         initial_odometer: 0,
         final_odometer: 0,
         rate_id: 0,
@@ -69,7 +72,11 @@ export const useRentalForm = (currentRental?: IRental) => {
         )
     });
 
-    const onSubmit = (values: IRentalCreate | IRentalUpdate) => {
+    const onSubmit = (values: IRentalCreate | IRentalUpdate, reservation_id?: number) => {
+        const rentalValues = {
+            ...values,
+            reservation_id
+        };
         if ('damages' in values) {
             // Es una actualización
             updateRental(currentRental!.reservation_id, values as IRentalUpdate);
@@ -77,7 +84,7 @@ export const useRentalForm = (currentRental?: IRental) => {
             // Es una creación
             addRental(values as IRentalCreate);
         }
-        router.push("/dashboard/rentals");
+        router.push("/dashboard/rentals/view");
     };
 
     return {
@@ -85,4 +92,4 @@ export const useRentalForm = (currentRental?: IRental) => {
         validationSchema: currentRental ? updateValidationSchema : createValidationSchema,
         onSubmit,
     };
-};
+}

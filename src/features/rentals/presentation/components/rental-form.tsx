@@ -25,7 +25,7 @@ type FormData = {
     damages?: Damage[];
 };
 
-export const RentalForm = ({ currentRental }: { currentRental?: IRentalResponse }) => {
+export const RentalForm = ({ currentRental, id }: { currentRental?: IRentalResponse, id?: number }) => {
     const { rates, fetchRates } = useRateStore();
     
     useEffect(() => {
@@ -55,6 +55,7 @@ export const RentalForm = ({ currentRental }: { currentRental?: IRentalResponse 
     const handleFormSubmit = (data: FormData) => {
         if (isUpdate) {
             const updateData: IRentalUpdate = {
+                id: currentRental.id,
                 reservation_id: currentRental.reservation_id,
                 car_status: data.car_status,
                 initial_odometer: data.initial_odometer,
@@ -66,12 +67,13 @@ export const RentalForm = ({ currentRental }: { currentRental?: IRentalResponse 
             onSubmit(updateData);
         } else {
             const createData: IRentalCreate = {
+                reservation_id: id ?? 0,
                 car_status: data.car_status,
                 initial_odometer: data.initial_odometer,
                 rate_id: data.rate_id,
                 final_odometer: 0
             };
-            onSubmit(createData);
+            onSubmit(createData, id);
         }
     };
 
@@ -94,10 +96,8 @@ export const RentalForm = ({ currentRental }: { currentRental?: IRentalResponse 
                                 <SelectContent>
                                     <SelectGroup>
                                         <SelectLabel>Estados</SelectLabel>
-                                        <SelectItem value={String(RentalStatus.AVAILABLE)}>Disponible</SelectItem>
-                                        <SelectItem value={String(RentalStatus.UNAVAILABLE)}>No disponible</SelectItem>
-                                        <SelectItem value={String(RentalStatus.DAMAGED)}>Dañado</SelectItem>
-                                        <SelectItem value={String(RentalStatus.RESERVED)}>Reservado</SelectItem>
+                                        <SelectItem value={String(RentalStatus.GOOD)}>Buen Estado</SelectItem>
+                                        <SelectItem value={String(RentalStatus.BAD)}>Mal Estado</SelectItem>
                                     </SelectGroup>
                                 </SelectContent>
                             </Select>
