@@ -3,6 +3,7 @@ import { UseAuthStore } from "../context/auth-user-store";
 import { IUser, IUserRegister } from "../../users/models/IUser"
 import * as yup from 'yup'
 import { IRegister } from "../models/IRegister";
+import toast from "react-hot-toast";
 
 export const useRegister = () => {
     const {signup} = UseAuthStore();
@@ -31,7 +32,8 @@ export const useRegister = () => {
 
     const onSubmit = async (values: IUserRegister) => {
         signup(values)
-        router.push('/dashboard')
+        toast.success('Se envió un correo de confirmación')
+        router.push('/')
     }
 
     return {
