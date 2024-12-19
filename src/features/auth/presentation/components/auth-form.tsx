@@ -119,7 +119,7 @@ export const AuthForm = () => {
         type="submit"
       >
        <Link href="/">
-        <a>Registrarse</a>
+      Registrarse
         </Link> 
       </button>
     </form>
