@@ -9,7 +9,7 @@ export const useVerifyEmail = () => {
         try {
             await AuthDataSourceImpl.getInstance().verifyEmail(token)
             toast.success('Email verificado con éxito')
-            router.push('/auth/login')
+            router.push('/login')
         } catch (error) {
             toast.error('Error al verificar el email') 
         }
