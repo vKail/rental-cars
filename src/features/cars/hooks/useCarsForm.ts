@@ -30,8 +30,8 @@ export const useCarForm = (currentCar?: Partial<ICar>) => {
     status: yup.string().required("El estado es requerido"),
     daily_rate: yup.string().required("El precio diario es requerido").min(1).max(500),
     image: yup.string().required("La imagen es requerida"),
-    motor: yup.string().required("El motor es requerido"),
-    chasis: yup.string().required("El chasis es requerido"),
+    motor: yup.string().required("El motor es requerido").matches(/^[a-zA-Z0-9]*$/, "El motor solo puede contener letras y números"),
+    chasis: yup.string().required("El chasis es requerido").matches(/^[a-zA-Z0-9]*$/, "El chasis solo puede contener letras y números"),
     door_count: yup.number().required("El número de puertas es requerido").min(2).max(5),
     storage: yup.number().required("El número de asientos es requerido").min(0).max(2),
   });
