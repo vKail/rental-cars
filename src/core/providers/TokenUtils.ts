@@ -1,12 +1,17 @@
+// TokenUtils.ts
 
 export const setToken = (token: string) => {
-    localStorage.setItem('access_token', token)
+    // Guarda tanto en cookie como localStorage para compatibilidad
+    document.cookie = `access_token=${token}; path=/; max-age=86400`; // expira en 1 día
 }
 
 export const getToken = () => {
-    return localStorage.getItem('access_token')
+    // Intenta obtener de cookie primero
+    const cookies = document.cookie.split(';');
+    const tokenCookie = cookies.find(cookie => cookie.trim().startsWith('access_token='));
+    return tokenCookie ? tokenCookie.split('=')[1] : null;
 }
 
 export const removeToken = () => {
-    localStorage.removeItem('access_token')
+    document.cookie = 'access_token=; path=/; expires=Thu, 01 Jan 1970 00:00:00 GMT';
 }

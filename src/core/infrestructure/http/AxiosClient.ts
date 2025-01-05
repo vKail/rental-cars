@@ -12,12 +12,13 @@ export class AxiosClient implements HttpHandler {
     process.env.NEXT_PUBLIC_API_URL || "http://localhost:3000";
   private static accessToken: string | null = null;
 
-  private constructor() {
+ private constructor() {
     this.axiosInstance = axios.create({
       baseURL: AxiosClient.baseUrl,
       headers: {
         "Content-Type": "application/json",
       },
+      withCredentials: true, // Importante para cookies
     });
 
     this.axiosInstance.interceptors.request.use(
@@ -34,6 +35,7 @@ export class AxiosClient implements HttpHandler {
         return Promise.reject(error);
       }
     );
+
 
     this.axiosInstance.interceptors.response.use(
       (response) => {

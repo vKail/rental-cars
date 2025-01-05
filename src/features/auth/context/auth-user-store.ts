@@ -39,7 +39,6 @@ export const UseAuthStore = create<AuthStore>(
         }
       },
       signup: async (data: IUserRegister) => {
-        set({ loading: true });
         const user = await AuthDataSourceImpl.getInstance().signup(data);
       },
       logout: () => {

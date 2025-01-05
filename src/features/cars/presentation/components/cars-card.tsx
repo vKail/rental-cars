@@ -60,7 +60,7 @@ export const CarCardComponent = ({ cars }: CarCardViewProps) => {
             
             <div className="mt-4">
               <Button className="w-full">
-                <Link href={`/dashboard/cars/reservation/${car.id}`} className="w-full">
+                <Link href={`/reservation_car/reservation/${car.id}`} className="w-full">
                   Alquilar
                 </Link>
               </Button>

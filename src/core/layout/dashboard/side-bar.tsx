@@ -1,14 +1,13 @@
 "use client";
-
-import { AlignJustify, Calendar, CarFront, Filter, LayoutDashboard, List, Plus, User } from 'lucide-react';
-import { useState } from 'react';
-import { Nav } from './nav';
-import { useSidebar } from '@/components/ui/sidebar';
-import { modules } from './data/modules';
-
+import { Nav } from "./nav";
+import { Button } from "@/components/ui/button";
+import { Menu, X } from "lucide-react";
+import { modulesByRole } from "./data/modules";
+import { UseAuthStore } from "@/features/auth/context/auth-user-store";
+import { useSidebar } from "@/components/ui/sidebar";
 
 export const SideBar = () => {
-  const [isClosed, setIsClosed] = useState(false);
+  const { user } = UseAuthStore();
   const {
     state,
     open,
@@ -17,31 +16,43 @@ export const SideBar = () => {
     setOpenMobile,
     isMobile,
     toggleSidebar,
-  } = useSidebar()
+  } = useSidebar();
+
+  const handleToggle = () => {
+    if (isMobile) {
+      setOpenMobile(!openMobile);
+    } else {
+      setOpen(!open);
+    }
+  };
 
   return (
-    <div className="flex">
+    <div className="relative flex">
+      {/* Botón de toggle */}
+      <Button 
+        variant="ghost" 
+        size="icon" 
+        className="absolute top-4 right-4 z-50 lg:hidden"
+        onClick={handleToggle}
+      >
+        {(isMobile ? openMobile : open) ? <X size={24} /> : <Menu size={24} />}
+      </Button>
+
+      {/* Sidebar con estado del hook useSidebar */}
       <div className={`
-        flex flex-col bg-white transition-all duration-500 ease-in-out border-r 
-        ${isClosed ? 'w-16' : 'w-64'}
+        ${(isMobile ? openMobile : open) ? 'translate-x-0' : '-translate-x-full'}
+        transition-transform duration-200 ease-in-out
+        fixed top-0 left-0 h-full 
+        lg:relative lg:translate-x-0
       `}>
-        <div className="flex w-full p-2">
-          <button 
-            onClick={() => setIsClosed(!isClosed)}
-            className={`
-              p-2 transition-transform duration-500 ease-in-out
-              ${isClosed ? 'rotate-180' : 'rotate-0'}
-            `}
-          >
-            <AlignJustify size={32} />
-          </button>
-        </div>
-        <div className={`
-          flex-1  ease-in-out
-          ${isClosed ? 'opacity-0 transition-opacity duration-150' : 'opacity-100 transition-opacity duration-500'}
-        `}>
-          <Nav modules={modules} />
-        </div>
+        <Nav
+          modules={
+            modulesByRole[
+              (user?.role as "administrador" | "client" | "employee") ??
+                "client"
+            ]
+          }
+        />
       </div>
     </div>
   );
