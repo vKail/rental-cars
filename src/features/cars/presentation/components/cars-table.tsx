@@ -31,6 +31,9 @@ export const CarsTable = ({ cars }: CarsTableProps) => {
             <TableHead>Año</TableHead>
             <TableHead>Estado</TableHead>
             <TableHead>Matrícula</TableHead>
+            <TableHead>Nro Motor</TableHead>
+            <TableHead>Nro Chasis</TableHead>
+            <TableHead>Nro Puertas</TableHead>
             <TableHead>Tipo de vehículo</TableHead>
             <TableHead>Costo diario</TableHead>
             <TableHead>Acciones</TableHead>
@@ -59,6 +62,9 @@ export const CarsTable = ({ cars }: CarsTableProps) => {
                 </p>
               </TableCell>
               <TableCell>{car.license_plate}</TableCell>
+              <TableCell>{car.motor}</TableCell>
+              <TableCell>{car.chasis}</TableCell>
+              <TableCell>{car.door_count}</TableCell>
               <TableCell>{car.vehicle_type}</TableCell>
               <TableCell>{car.daily_rate}</TableCell>
               <TableCell>

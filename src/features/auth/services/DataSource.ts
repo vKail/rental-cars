@@ -13,6 +13,7 @@ import { IRegister } from "../models/IRegister"
     signup: (data: Partial<IRegister>) => Promise<IRegister>
     recoveryPassword: (data: IRecoveryEmail) => Promise<void>
     changePassword: (data: Partial<IRecoveryPassword>) => Promise<void>
+    verifyEmail: (token: string) => Promise<void>
     logout: () => void
 }
 
@@ -44,6 +45,10 @@ import { IRegister } from "../models/IRegister"
 
     async changePassword(user: Partial<IRecoveryPassword>): Promise<void> {
         await this.httpClient.put('users/password', { user })
+    }
+
+    async verifyEmail(token: string): Promise<void> {
+        await this.httpClient.get(`users/confirmation?confirmation_token=${token}`)
     }
 
     static getInstance(): AuthDataSource {

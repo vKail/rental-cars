@@ -9,7 +9,8 @@ interface CarStore {
     cars: Partial<ICar>[];
     error: string;
     fetchCars: () => void;
-    fetchCarsByFilters : (params: Partial<ICarFilter>) => void
+    fetchCarsAvialable: () => void;
+    fetchCarsByFilters: (params: Partial<ICarFilter>) => void;
     addCar: (car: Partial<ICar>) => void;
     updateCar: (id: number, car: Partial<ICar>) => void;
     deleteCar: (id: number) => void;
@@ -24,25 +25,74 @@ export const useCarStore = create<CarStore>(
             cars: [],
             error: '',
             fetchCars: async () => {
-                const cars = await DataSourceImpl.getInstance().getAllCars();
-                set({cars: cars});
+                try {
+                    const cars = await DataSourceImpl.getInstance().getAllCars();
+                    set({ cars: cars });
+                    toast.success('Cars fetched successfully');
+                } catch (error) {
+                    const errorMessage = error instanceof Error ? error.message : 'Failed to fetch cars';
+                    set({ error: errorMessage });
+                    toast.error(errorMessage);
+                }
+            },
+            fetchCarsAvialable: async () => {
+                try {
+                    const cars = await DataSourceImpl.getInstance().getAllCarsAvailables();
+                    set({ cars: cars });
+                    toast.success('Available cars fetched successfully');
+                } catch (error) {
+                    const errorMessage = error instanceof Error ? error.message : 'Failed to fetch available cars';
+                    set({ error: errorMessage });
+                    toast.error(errorMessage);
+                }
             },
             fetchCarsByFilters: async (params: Partial<ICarFilter>) => {
-                const cars = await DataSourceImpl.getInstance().getAllCarsAvailablesByFilter(params);
-                set({cars: cars});
+                try {
+                    const cars = await DataSourceImpl.getInstance().getAllCarsAvailablesByFilter(params);
+                    set({ cars: cars });
+                    toast.success('Filtered cars fetched successfully');
+                } catch (error) {
+                    const errorMessage = error instanceof Error ? error.message : 'Failed to fetch filtered cars';
+                    set({ error: errorMessage });
+                    toast.error(errorMessage);
+                }
             },
-            
             addCar: async (car: Partial<ICar>) => {
-                const newCar = await DataSourceImpl.getInstance().createCar(car);
-               
+                try {
+                    const newCar = await DataSourceImpl.getInstance().createCar(car);
+                    set({ cars: [...get().cars, newCar] });
+                    toast.success('Car added successfully');
+                } catch (error) {
+                    const errorMessage = error instanceof Error ? error.message : 'Failed to add car';
+                    set({ error: errorMessage });
+                    toast.error(errorMessage);
+                }
             },
             updateCar: async (id: number, car: Partial<ICar>) => {
+                try {
                     await DataSourceImpl.getInstance().updateCar(id, car);
-                
+                    set({
+                        cars: get().cars.map((existingCar) =>
+                            existingCar.id === id ? { ...existingCar, ...car } : existingCar
+                        )
+                    });
+                    toast.success('Car updated successfully');
+                } catch (error) {
+                    const errorMessage = error instanceof Error ? error.message : 'Failed to update car';
+                    set({ error: errorMessage });
+                    toast.error(errorMessage);
+                }
             },
             deleteCar: async (id: number) => {
-                set({cars : get().cars.filter(car => car.id !== id)})
-                await DataSourceImpl.getInstance().deleteCar(id);
+                try {
+                    await DataSourceImpl.getInstance().deleteCar(id);
+                    set({ cars: get().cars.filter(car => car.id !== id) });
+                    toast.success('Car deleted successfully');
+                } catch (error) {
+                    const errorMessage = error instanceof Error ? error.message : 'Failed to delete car';
+                    set({ error: errorMessage });
+                    toast.error(errorMessage);
+                }
             },
         }),
         {
@@ -51,4 +101,3 @@ export const useCarStore = create<CarStore>(
         },
     ) as StateCreator<CarStore>,
 );
-

@@ -24,7 +24,7 @@ export class DataSourceImpl implements DataSource {
         return response;
     }
     async getAllCarsAvailables (): Promise<ICarResponse[]>{
-        const response = await this.httpClient.get<ICarResponse[]>('/api/v1/vehicles/available')
+        const response = await this.httpClient.get<ICarResponse[]>('/api/v1/vehicles/vehicles_available')
         return response;
     }
     async getAllCarsAvailablesByFilter(params: Partial<ICarFilter>): Promise<ICarResponse[]> {
@@ -40,7 +40,7 @@ export class DataSourceImpl implements DataSource {
                 searchParams.append(key, String(value));
             }
         }); 
-        const response = await this.httpClient.get<ICarResponse[]>(`/api/v1/vehicles?${searchParams.toString()}`);
+        const response = await this.httpClient.get<ICarResponse[]>(`/api/v1/vehicles/vehicles_available?${searchParams.toString()}`);
         return response;
     }
     

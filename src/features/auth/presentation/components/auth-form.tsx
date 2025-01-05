@@ -3,6 +3,7 @@ import { useForm } from "react-hook-form";
 import { useRegister } from "../../hooks/useRegister";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { IUser, IUserRegister } from "../../../users/models/IUser";
+import Link from "next/link";
 
 export const AuthForm = () => {
   const { initialValues, validationSchema, onSubmit } = useRegister();
@@ -117,7 +118,9 @@ export const AuthForm = () => {
         className="transition-colors mt-4 bg-new-black text-white p-2 rounded-lg hover:bg-new-back-hover "
         type="submit"
       >
-        Registrarse
+       <Link href="/">
+      Registrarse
+        </Link> 
       </button>
     </form>
   );

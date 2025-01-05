@@ -8,6 +8,11 @@ export interface ICar {
   status: string;
   daily_rate: string;
   image: string;
+  motor: string;
+  chasis: string;
+  door_count: number;
+  storage: number;
+
 }
 
 export interface ICarResponse {
@@ -20,6 +25,10 @@ export interface ICarResponse {
   vehicle_type: string;
   status: string;
   daily_rate: string;
+  motor: string;
+  chasis: string;
+  door_count: number;
+  storage: number;
   created_at: Date;
   updated_at: Date;
 }

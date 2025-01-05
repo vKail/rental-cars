@@ -1,6 +1,6 @@
 import { LucideIcon } from "lucide-react";
 export interface IModule {
-    name: string;
+    route: string;
     label: string;
     icon: LucideIcon;
     subModules: ISubModule[];

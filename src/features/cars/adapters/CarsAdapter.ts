@@ -11,6 +11,9 @@ export class CarsAdapter {
       vehicle_type: data.vehicle_type,
       status: data.status,
       daily_rate: data.daily_rate,
+      motor: data.motor,
+      chasis: data.chasis,
+      door_count: data.door_count,
     };
   }
 }

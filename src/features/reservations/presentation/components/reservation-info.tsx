@@ -19,6 +19,8 @@ import {
 import { useReservationForm } from "../../hooks/useReservationForm";
 import { IReservationData } from "../../models/IReservation";
 import { yupResolver } from "@hookform/resolvers/yup";
+import { useState } from "react";
+import PaymentDialog from "./payments";
 
 interface IParams {
   car: Partial<ICar>;
@@ -26,6 +28,7 @@ interface IParams {
 }
 
 export const ReservationInfo = ({ car, user_id }: IParams) => {
+const [showPayment, setShowPayment] = useState(false);
   const { initialValues, onSubmit, validationSchema } = useReservationForm();
   const {
     register,
@@ -37,6 +40,10 @@ export const ReservationInfo = ({ car, user_id }: IParams) => {
     resolver: yupResolver(validationSchema),
     defaultValues: initialValues
   });
+
+ const handleSubmitPay = () => {
+    setShowPayment(true);
+  };
 
   const reservationDate = watch('reservation_date');
   const refundDate = watch('refund_date');
@@ -54,7 +61,6 @@ export const ReservationInfo = ({ car, user_id }: IParams) => {
     <div className="container mx-auto px-4 py-8 max-w-6xl">
       <h1 className="text-3xl font-bold text-center mb-8">Reservar Vehículo</h1>
       <div className="flex flex-col md:flex-row justify-center items-start gap-12">
-        {/* Sección de imagen */}
         <div className="w-full md:w-1/2 flex justify-center">
           <Image
             className="rounded-2xl shadow-lg object-cover max-h-[400px] w-auto"
@@ -170,12 +176,36 @@ export const ReservationInfo = ({ car, user_id }: IParams) => {
                 </p>
               )}
             </div>
-
+              <div className="flex gap-4">
+              <Button 
+                type="button"
+                variant="outline"
+                onClick={handleSubmitPay}
+                disabled={total <= 0}
+              >
+                Agregar Pago
+              </Button>
+              <Button 
+                type="submit"
+                disabled={total <= 0} 
+              >
+                Confirmar Reserva
+              </Button>
+            </div>
+      <PaymentDialog 
+        isOpen={showPayment}
+        onClose={() => setShowPayment(false)}
+        total={total}
+        onConfirm={() => {
+          setShowPayment(false);
             <Button 
               type="submit" 
             >
               Confirmar Reserva
             </Button>
+        }
+        }
+      />
           </form>
         </div>
       </div>

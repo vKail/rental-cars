@@ -1,6 +1,6 @@
 import { create, StateCreator } from "zustand";
 import { IAuth } from "../models/IAuth";
-import { IUser } from "../../users/models/IUser";
+import { IUser, IUserRegister } from "../../users/models/IUser";
 import { createJSONStorage, persist } from "zustand/middleware";
 import { AuthDataSourceImpl } from "../services/DataSource";
 import toast from "react-hot-toast";
@@ -13,7 +13,7 @@ export interface AuthStore {
   setUser: (user: IUser) => void;
   loading: boolean;
   login: (data: IAuth) => Promise<boolean>;
-  signup: (data: IRegister) => void;
+  signup: (data: IUserRegister) => void;
   logout: () => void;
 }
 
@@ -38,10 +38,8 @@ export const UseAuthStore = create<AuthStore>(
           return false
         }
       },
-      signup: async (data: IRegister) => {
-        set({ loading: true });
+      signup: async (data: IUserRegister) => {
         const user = await AuthDataSourceImpl.getInstance().signup(data);
-        set({ user, loading: false });
       },
       logout: () => {
         set({ user: DEFAULT_USER });

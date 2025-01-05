@@ -2,7 +2,7 @@ import * as yup from 'yup'
 import { AuthDataSourceImpl } from '../services/DataSource'
 import { IRecoveryEmail, IRecoveryPassword } from '../models/IRecovery'
 import toast from 'react-hot-toast'
-import { useRouter } from 'next/router'
+import { useRouter } from 'next/navigation'
 
 
 
