@@ -9,7 +9,7 @@ export class AxiosClient implements HttpHandler {
   private static instance: AxiosClient;
   private axiosInstance: AxiosInstance;
   private static readonly baseUrl: string =
-    process.env.NEXT_PUBLIC_API_URL || "http://localhost:3000";
+    "http://20.106.200.151:3000";
   private static accessToken: string | null = null;
 
  private constructor() {

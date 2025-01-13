@@ -34,6 +34,11 @@ export const modulesByRole: Record<
           label: "Buscar",
           icon: Filter,
         },
+        {
+          name: "allreservations",
+          label: "Reservaciones",
+          icon: List,
+        },
       ],
     },
     {
